@@ -4,6 +4,14 @@
 [![Version](https://img.shields.io/badge/version-v1.0.0-green.svg)](https://github.com/mupoet/mu-skill-creator)
 [![Skill](https://img.shields.io/badge/type-Skill-purple.svg)](https://mupoet.github.io/mu-skill-creator/)
 
+English | [中文](./README_CN.md)
+
+<p align="center">
+  <a href="https://mupoet.github.io/mu-skill-creator/"><strong>Landing Page</strong></a> ·
+  <a href="https://github.com/mupoet/mu-skill-creator/issues"><strong>Issues</strong></a> ·
+  <a href="mailto:muippt@agent.qq.com"><strong>Contact</strong></a>
+</p>
+
 **Not just write a Skill file — engineer it not to fail.**
 
 mu-skill-creator is an engineering scaffold for creating and auditing AI agent Skills (structured instruction files that drive agent behavior). Instead of writing free-form prompts and hoping they work, it applies stage gates, automated audits, and a three-layer architecture to systematically prevent the three failure modes that cause Skills to degrade over time: rule forgetting, rule conflict, and rule bloat. Born from 20 real-world incidents catalogued as anti-patterns, every guardrail in this project traces back to an actual failure.
@@ -205,14 +213,48 @@ Contributions are welcome! Whether it's a new anti-pattern from your own experie
 
 Please ensure your changes pass the audit script before submitting. If you're adding a new anti-pattern, include the root-cause incident that motivated it — every rule should be traceable to a real failure.
 
+## About the Author
+
+💡 Signatory author of Tsinghua University Press · 2026 Dangdang Influential Author · AI & Large Model HR specialist at a leading tech company · National Level-1 HR Manager · Level-2 Psychological Counselor · Self-taught designer.
+
+📚 Author of *Erta-style Team Management*. Clients include ByteDance, Tencent, Baidu, China Mobile, SMG, BOE, and more.
+
+📧 [muippt@agent.qq.com](mailto:muippt@agent.qq.com) · 🐙 [@mupoet](https://github.com/mupoet)
+
+---
+
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-<p align="center">
-  <a href="https://mupoet.github.io/mu-skill-creator/">📖 Landing Page</a> ·
-  <a href="https://github.com/mupoet/mu-skill-creator">💻 GitHub</a> ·
-  <a href="https://github.com/mupoet/mu-skill-creator/issues">🐛 Issues</a>
-</p>
+## Contact & Collaboration
+
+- 💬 **Questions & sharing** — [GitHub Discussions](https://github.com/mupoet/mu-skill-creator/discussions)
+- 🐛 **Bug reports & feature requests** — [GitHub Issues](https://github.com/mupoet/mu-skill-creator/issues)
+- 📧 **Business & consulting inquiries** — [muippt@agent.qq.com](mailto:muippt@agent.qq.com)
+
+---
+
+## Star History
+
+If this project helps you, please give it a ⭐!
+
+<a href="https://star-history.com/#mupoet/mu-skill-creator&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=mupoet/mu-skill-creator&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=mupoet/mu-skill-creator&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=mupoet/mu-skill-creator&type=Date" />
+ </picture>
+</a>
+
+---
+
+> One line summary: Not "write a prompt file and hope it works" — it's "engineer AI Skills so they don't degrade over time."
+
+---
+
+Made with ❤️ by [木先生iPPT](https://github.com/mupoet)
+
+[⬆ Back to Top](#️-mu-skill-creator)
