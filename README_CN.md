@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="mu-skill-creator" src="assets/default-banner.png" width="100%">
+  <img alt="mu-skill-creator" src="assets/banner.svg" width="100%">
 </p>
 
 # 🦐 mu-skill-creator
