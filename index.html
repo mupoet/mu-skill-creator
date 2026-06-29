@@ -3,328 +3,322 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>mu-skill-creator — Skill 创作与质量门控</title>
-  <meta name="description" content="用工程脚手架让 Skill 从创作到审计全流程不翻车。3大设计决策 · 20条反模式 · 23项质量清单 · 自动化审计脚本。">
-  <meta property="og:title" content="mu-skill-creator — Skill 创作与质量门控">
-  <meta property="og:description" content="用工程脚手架让 Skill 从创作到审计全流程不翻车。3大设计决策 · 20条反模式 · 23项质量清单 · 自动化审计脚本。">
-  <meta property="og:url" content="https://mupoet.github.io/mu-skill-creator/">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <title>mu-skill-creator — 用工程脚手架让 Skill 全流程不翻车</title>
   <style>
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    :root{
-      --bg:#faf9f7;--bg-warm:#f5f0eb;--bg-card:#fff;--bg-code:#f7f5f2;
-      --border:#e8e2db;--border-light:#f0ebe5;
-      --text:#2d2a26;--text-secondary:#6b6560;--text-muted:#9e9690;
-      --accent:#c96442;--accent-light:#e8a07a;--accent-bg:rgba(201,100,66,0.06);
-      --green:#5a8a6a;--blue:#5a7a9a;--purple:#7a6a9a;
-      --radius:12px;--radius-sm:8px;
-      --font:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC','PingFang SC',sans-serif;
-      --font-serif:'Georgia','Noto Serif SC',serif;
-      --font-mono:'SF Mono','Fira Code',monospace;
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #faf8f5;
+      --bg-warm: #f3ede6;
+      --bg-card: #ffffff;
+      --text: #2c2825;
+      --text-sub: #5f5750;
+      --text-muted: #9b9188;
+      --accent: #c75b39;
+      --accent-soft: rgba(199, 91, 57, 0.08);
+      --green: #4a7c5c;
+      --green-soft: rgba(74, 124, 92, 0.08);
+      --blue: #4a6f8a;
+      --blue-soft: rgba(74, 111, 138, 0.08);
+      --border: #e8e0d8;
+      --radius: 16px;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', 'PingFang SC', sans-serif;
+      --font-serif: 'Georgia', 'Noto Serif SC', serif;
     }
-    html{scroll-behavior:smooth;font-size:16px}
-    body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-    a{color:var(--accent);text-decoration:none;transition:color .25s}a:hover{color:var(--accent-light)}
-    .container{max-width:1100px;margin:0 auto;padding:0 24px}
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 28px; }
 
-    /* Nav */
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,249,247,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);transition:background .25s}
-    .nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
-    .nav-logo{font-size:1.25rem;font-weight:700;letter-spacing:-.02em;color:var(--text)}
-    .nav-links{display:flex;gap:32px;list-style:none}
-    .nav-links a{color:var(--text-secondary);font-size:.875rem;font-weight:500;transition:color .25s}.nav-links a:hover{color:var(--accent)}
-    .nav-right{display:flex;align-items:center;gap:12px}
-    .lang-switch{display:inline-flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;font-size:.8rem;cursor:pointer;user-select:none}
-    .lang-switch span{padding:6px 12px;transition:all .25s;color:var(--text-muted)}
-    .lang-switch span.active{background:var(--accent);color:#fff}
-    .lang-switch span:hover:not(.active){color:var(--text);background:var(--bg-warm)}
-    .nav-cta{padding:8px 20px;border-radius:var(--radius-sm);font-size:.875rem;font-weight:600;background:var(--accent);color:#fff;transition:all .25s}
-    .nav-cta:hover{background:var(--accent-light);color:#fff;transform:translateY(-1px)}
+    /* ═══ Hero ═══ */
+    .hero { padding: 140px 0 100px; text-align: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 20px; background: var(--accent-soft); font-size: .8rem; color: var(--accent); font-weight: 600; margin-bottom: 28px; }
+    .hero-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{ opacity:1 } 50%{ opacity:.3 } }
+    .hero h1 { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.25; letter-spacing: -.02em; margin-bottom: 20px; }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero-desc { font-size: 1.1rem; color: var(--text-sub); max-width: 560px; margin: 0 auto 40px; }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 10px; font-size: .95rem; font-weight: 600; transition: all .2s; border: none; cursor: pointer; text-decoration: none; }
+    .btn:hover { text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #b04e30; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(199,91,57,.15); }
+    .btn-ghost { background: var(--bg-card); color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-    /* Hero */
-    .hero{position:relative;padding:160px 0 120px;text-align:center}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:24px;background:var(--accent-bg);border:1px solid var(--border);font-size:.8rem;color:var(--accent);font-weight:500;margin-bottom:32px}
-    .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-    .hero h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.15;letter-spacing:-.03em;margin-bottom:24px;color:var(--text)}
-    .hero h1 .accent-text{color:var(--accent)}
-    .hero-sub{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);max-width:600px;margin:0 auto 48px;line-height:1.7}
-    .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--radius);font-size:1rem;font-weight:600;transition:all .25s;cursor:pointer;border:none;text-decoration:none}
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-light);transform:translateY(-2px);color:#fff;box-shadow:0 4px 16px rgba(201,100,66,0.15)}
-    .btn-secondary{background:var(--bg-card);color:var(--text);border:1px solid var(--border)}
-    .btn-secondary:hover{border-color:var(--accent);transform:translateY(-2px);color:var(--accent);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+    /* ═══ Stats strip ═══ */
+    .stats { display: flex; justify-content: center; gap: 0; margin-top: 60px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--bg-card); max-width: 640px; margin-left: auto; margin-right: auto; }
+    .stat { flex: 1; padding: 28px 12px; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: .72rem; color: var(--text-muted); margin-top: 4px; letter-spacing: .06em; }
 
-    /* Stats */
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:var(--radius);overflow:hidden;margin:80px auto 0;max-width:720px;border:1px solid var(--border)}
-    .stat{background:var(--bg-card);padding:32px 16px;text-align:center;transition:background .25s}.stat:hover{background:var(--bg-warm)}
-    .stat-num{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:800;color:var(--accent);line-height:1.2}
-    .stat-label{font-size:.75rem;color:var(--text-muted);margin-top:6px;letter-spacing:.08em}
+    /* ═══ Section common ═══ */
+    section { padding: 90px 0; }
+    .section-tag { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); margin-bottom: 12px; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 700; line-height: 1.3; margin-bottom: 14px; }
+    .section-desc { font-size: 1rem; color: var(--text-sub); max-width: 560px; line-height: 1.7; }
+    .section-head { margin-bottom: 48px; }
+    .section-head.center { text-align: center; }
+    .section-head.center .section-desc { margin: 0 auto; }
 
-    /* Sections */
-    section{padding:100px 0}
-    .section-label{display:inline-block;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:16px}
-    .section-title{font-family:var(--font-serif);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin-bottom:16px;color:var(--text)}
-    .section-desc{font-size:1.05rem;color:var(--text-secondary);max-width:600px;line-height:1.7}
-    .section-header{margin-bottom:64px}.section-header.center{text-align:center}.section-header.center .section-desc{margin:0 auto}
+    /* ═══ Failure Modes (核心亮点) ═══ */
+    .failures { background: var(--bg-warm); }
+    .failure-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .failure-card { padding: 28px 22px; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border); position: relative; }
+    .failure-card::before { content: attr(data-icon); position: absolute; top: 20px; right: 18px; font-size: 1.6rem; opacity: .7; }
+    .failure-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: 6px; }
+    .failure-card .symptom { font-size: .8rem; color: var(--text-muted); margin-bottom: 10px; }
+    .failure-card .counter { display: inline-block; padding: 3px 10px; border-radius: 5px; font-size: .72rem; font-weight: 600; }
+    .counter-accent { background: var(--accent-soft); color: var(--accent); }
+    .counter-green { background: var(--green-soft); color: var(--green); }
+    .counter-blue { background: var(--blue-soft); color: var(--blue); }
 
-    /* Philosophies — 核心设计决策 */
-    .philosophies-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .philosophy-card{padding:28px 24px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--card-color,var(--accent));transition:all .25s}
-    .philosophy-card:hover{transform:translateY(-3px);box-shadow:0 4px 16px rgba(0,0,0,0.06)}
-    .philosophy-name{font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--text)}
-    .philosophy-dna{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
-    .philosophy-lineage{display:inline-block;margin-top:12px;padding:3px 10px;border-radius:4px;font-size:.7rem;font-weight:600;background:var(--accent-bg);color:var(--accent)}
+    /* ═══ Features — horizontal cards ═══ */
+    .feature-list { display: flex; flex-direction: column; gap: 14px; }
+    .feature-item { display: flex; align-items: flex-start; gap: 18px; padding: 24px; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border); transition: transform .2s; }
+    .feature-item:hover { transform: translateX(4px); }
+    .feature-item .fi-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--bg-warm); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .feature-item h3 { font-size: .95rem; font-weight: 700; margin-bottom: 4px; }
+    .feature-item p { font-size: .82rem; color: var(--text-sub); line-height: 1.6; }
 
-    /* Features Grid */
-    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .feature-card{padding:36px 28px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);transition:all .25s}
-    .feature-card:hover{transform:translateY(-3px);box-shadow:0 4px 16px rgba(0,0,0,0.06)}
-    .feature-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:20px;background:var(--bg-warm)}
-    .feature-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--text)}
-    .feature-card p{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
+    /* ═══ Workflow timeline ═══ */
+    .workflow-section { background: var(--bg-warm); }
+    .timeline { position: relative; padding-left: 36px; }
+    .timeline::before { content: ''; position: absolute; left: 14px; top: 8px; bottom: 8px; width: 2px; background: var(--border); border-radius: 2px; }
+    .tl-item { position: relative; margin-bottom: 20px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-item::before { content: attr(data-step); position: absolute; left: -36px; top: 2px; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-size: .7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .tl-item h4 { font-size: .9rem; font-weight: 700; margin-bottom: 2px; }
+    .tl-item .tl-exit { font-size: .78rem; color: var(--text-muted); }
 
-    .trigger-tag{padding:3px 10px;border-radius:4px;font-size:.7rem;background:var(--bg-warm);color:var(--text-muted);border:1px solid var(--border-light)}
+    /* ═══ Anti-patterns ═══ */
+    .ap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .ap-card { padding: 18px 20px; border-radius: 10px; background: var(--bg-card); border: 1px solid var(--border); }
+    .ap-card h4 { font-size: .85rem; font-weight: 700; margin-bottom: 4px; }
+    .ap-card .ap-count { font-size: .75rem; color: var(--text-muted); }
 
-    /* Comparison */
-    .comparison-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
-    .comparison-table th,.comparison-table td{padding:14px 16px;text-align:left;font-size:.85rem;border-bottom:1px solid var(--border-light)}
-    .comparison-table thead th{background:var(--bg-card);font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-secondary)}
-    .comparison-table thead th:nth-child(2){color:var(--accent)}
-    .comparison-table tbody tr{background:var(--bg-card);transition:background .25s}.comparison-table tbody tr:hover{background:var(--bg-warm)}
-    .comparison-table tbody tr:last-child td{border-bottom:none}
-    .comparison-table td:first-child{font-weight:600;color:var(--text)}.comparison-table td:nth-child(2){color:var(--accent);font-weight:600}
-    .comparison-wrapper{overflow-x:auto}
+    /* ═══ Comparison ═══ */
+    .compare-section { background: var(--bg-warm); }
+    .cmp-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-card); }
+    .cmp-table th, .cmp-table td { padding: 12px 16px; text-align: left; font-size: .82rem; border-bottom: 1px solid var(--border); }
+    .cmp-table thead th { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); font-weight: 700; background: var(--bg-warm); }
+    .cmp-table thead th:nth-child(2) { color: var(--accent); }
+    .cmp-table tbody tr:last-child td { border-bottom: none; }
+    .cmp-table td:first-child { font-weight: 600; }
+    .cmp-table td:nth-child(2) { color: var(--accent); font-weight: 600; }
 
-    /* CTA */
-    .cta-section{text-align:center;padding:120px 0}
-    .cta-section h2{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:16px;letter-spacing:-.02em;color:var(--text);line-height:1.3}
-    .cta-section h2 .accent-text{color:var(--accent)}
-    .cta-section p{color:var(--text-secondary);font-size:1.05rem;margin-bottom:40px}
-    .cta-section .hero-actions{justify-content:center}
+    /* ═══ CTA ═══ */
+    .cta { text-align: center; padding: 100px 0; }
+    .cta h2 { font-family: var(--font-serif); font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 14px; line-height: 1.3; }
+    .cta h2 em { font-style: normal; color: var(--accent); }
+    .cta p { color: var(--text-sub); font-size: 1rem; margin-bottom: 36px; }
 
+    /* ═══ Footer ═══ */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; background: var(--bg-warm); }
+    .footer-links { display: flex; justify-content: center; gap: 28px; margin-bottom: 16px; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-muted); font-size: .82rem; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy { font-size: .75rem; color: var(--text-muted); line-height: 1.8; }
 
-    /* Footer */
-    footer{border-top:1px solid var(--border);padding:48px 0;text-align:center;background:var(--bg-warm)}
-    .footer-links{display:flex;justify-content:center;gap:32px;margin-bottom:20px;flex-wrap:wrap}
-    .footer-links a{color:var(--text-muted);font-size:.85rem}.footer-links a:hover{color:var(--accent)}
-    .footer-copy{font-size:.8rem;color:var(--text-muted);line-height:1.8}
-    .footer-copy a{color:var(--text-secondary)}.footer-copy a:hover{color:var(--accent)}
+    /* ═══ Responsive ═══ */
+    @media (max-width: 768px) {
+      .failure-grid { grid-template-columns: 1fr; }
+      .stats { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+    }
 
-    /* Fade Animation */
-    .fade-up{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}.fade-up.visible{opacity:1;transform:translateY(0)}
-
-    /* Responsive */
-    @media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.features-grid{grid-template-columns:repeat(2,1fr)}.philosophies-grid{grid-template-columns:1fr}.nav-links{display:none}}
-    @media(max-width:600px){.features-grid{grid-template-columns:1fr}.hero{padding:120px 0 80px}section{padding:64px 0}}
+    /* ═══ Fade in ═══ */
+    .fade { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
+    .fade.show { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <div class="nav-logo">🛡️ mu-skill-creator</div>
-    <ul class="nav-links">
-      <li><a href="#features" data-en="Features" data-zh="核心能力">核心能力</a></li>
-      
-      <li><a href="#comparison" data-en="Compare" data-zh="对比">对比</a></li>
-    </ul>
-    <div class="nav-right">
-      <div class="lang-switch" id="langSwitch">
-        <span data-lang="zh" class="active">中文</span>
-        <span data-lang="en">EN</span>
-      </div>
-      <a href="https://github.com/mupoet/mu-skill-creator" class="nav-cta" target="_blank">GitHub →</a>
-    </div>
-  </div>
-</nav>
-
-<!-- Hero -->
+<!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-badge"><span class="dot"></span> <span data-en="v1.0.0 · Open Source" data-zh="v1.0.0 · 开源发布">v1.0.0 · 开源发布</span></div>
-    <h1 data-en="Engineer your Skill <span class='accent-text'>not to fail</span>." data-zh="用工程脚手架让 Skill<br>从创作到审计<span class='accent-text'>全流程不翻车</span>。">用工程脚手架让 Skill<br>从创作到审计<span class="accent-text">全流程不翻车</span>。</h1>
-    <p class="hero-sub" data-en="One Skill for the entire lifecycle — 3 design decisions · 20 anti-patterns · 23 audit items · automated scripts." data-zh="一个 Skill 搞定从创作到质量门控的全流程——3大设计决策 · 20条反模式 · 23项审计清单 · 自动化脚本。">一个 Skill 搞定从创作到质量门控的全流程——3大设计决策 · 20条反模式 · 23项审计清单 · 自动化脚本。</p>
+  <div class="wrap">
+    <div class="hero-badge">v1.0.0 · 开源发布</div>
+    <h1>用工程脚手架让 Skill<br>从创作到审计<em>全流程不翻车</em></h1>
+    <p class="hero-desc">3 大设计决策 · 20 条反模式 · 23 项审计清单 · 自动化脚本——一个 Skill 覆盖全生命周期。</p>
     <div class="hero-actions">
-      <a href="https://github.com/mupoet/mu-skill-creator" class="btn btn-primary" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> <span data-en="Get Started" data-zh="立即使用">立即使用</span></a>
-      <a href="https://github.com/mupoet/mu-skill-creator/archive/refs/heads/main.zip" class="btn btn-secondary"><span data-en="↓ Download ZIP" data-zh="↓ 下载 ZIP">↓ 下载 ZIP</span></a>
+      <a href="https://github.com/mupoet/mu-skill-creator" class="btn btn-primary" target="_blank">⭐ GitHub</a>
+      <a href="https://github.com/mupoet/mu-skill-creator/archive/refs/heads/main.zip" class="btn btn-ghost">📦 下载 ZIP</a>
     </div>
-    <div class="stats fade-up">
-      <div class="stat"><div class="stat-num">🧠 3</div><div class="stat-label" data-en="Design Decisions" data-zh="设计决策">设计决策</div></div>
-      <div class="stat"><div class="stat-num">🛡️ 20</div><div class="stat-label" data-en="Anti-Patterns" data-zh="反模式">反模式</div></div>
-      <div class="stat"><div class="stat-num">✅ 23</div><div class="stat-label" data-en="Audit Items" data-zh="审计项">审计项</div></div>
-      <div class="stat"><div class="stat-num">🚪 8</div><div class="stat-label" data-en="Stage Gates" data-zh="阶段门控">阶段门控</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- Philosophies — 三大设计决策 -->
-<section id="philosophies">
-  <div class="container">
-    <div class="section-header center fade-up">
-      <span class="section-label" data-en="🧠 Design Decisions" data-zh="🧠 核心设计决策">🧠 核心设计决策</span>
-      <h2 class="section-title" data-en="Three decisions against three failure modes" data-zh="三个决策对抗三个失效模式">三个决策对抗三个失效模式</h2>
-      <p class="section-desc" data-en="Every rule traces back to a real incident. Every decision counters at least one systemic failure mode." data-zh="每条规则都可追溯到真实事故，每个决策都对抗至少一个系统性失效模式。">每条规则都可追溯到真实事故，每个决策都对抗至少一个系统性失效模式。</p>
-    </div>
-    <div class="philosophies-grid fade-up">
-      <div class="philosophy-card" style="--card-color:var(--accent)">
-        <div class="philosophy-name" data-en="Three-Layer Model" data-zh="三层模型">三层模型</div>
-        <div class="philosophy-dna" data-en="L1 always loaded · L2 ≤300 lines on activation · L3 on demand. Controls context bloat and keeps effective instructions in focus." data-zh="L1 始终加载 · L2 激活时≤300行 · L3 按需读取。控制 context 膨胀，让有效指令不被挤出。">L1 始终加载 · L2 激活时≤300行 · L3 按需读取。控制 context 膨胀，让有效指令不被挤出。</div>
-        <div class="philosophy-lineage" data-en="Counters: Rule Bloat" data-zh="对抗：规则膨胀">对抗：规则膨胀</div>
-      </div>
-      <div class="philosophy-card" style="--card-color:var(--green)">
-        <div class="philosophy-name" data-en="Stage Gates" data-zh="阶段门控">阶段门控</div>
-        <div class="philosophy-dna" data-en="Each stage has independent entry/exit conditions that cannot be skipped. Gates are structural constraints, not suggestions." data-zh="每个阶段有独立的入口/出口条件，不满足不可跳过。门控是结构约束，不是建议。">每个阶段有独立的入口/出口条件，不满足不可跳过。门控是结构约束，不是建议。</div>
-        <div class="philosophy-lineage" data-en="Counters: Rule Forgetting" data-zh="对抗：规则遗忘">对抗：规则遗忘</div>
-      </div>
-      <div class="philosophy-card" style="--card-color:var(--blue)">
-        <div class="philosophy-name" data-en="Audit Script + Checklist" data-zh="审计脚本+清单">审计脚本+清单</div>
-        <div class="philosophy-dna" data-en="Automated scanning + 23-item confirmation. Cross-section consistency can only be verified by scripts, not eyeballing." data-zh="自动化扫描 + 23项逐项确认。跨章节一致性只能靠脚本校验，目测=遗漏。">自动化扫描 + 23项逐项确认。跨章节一致性只能靠脚本校验，目测=遗漏。</div>
-        <div class="philosophy-lineage" data-en="Counters: Rule Conflict" data-zh="对抗：规则冲突">对抗：规则冲突</div>
-      </div>
+    <div class="stats fade">
+      <div class="stat"><div class="stat-num">🧠 3</div><div class="stat-label">设计决策</div></div>
+      <div class="stat"><div class="stat-num">🛡️ 20</div><div class="stat-label">反模式</div></div>
+      <div class="stat"><div class="stat-num">✅ 23</div><div class="stat-label">审计项</div></div>
+      <div class="stat"><div class="stat-num">🚪 8</div><div class="stat-label">阶段门控</div></div>
     </div>
   </div>
 </section>
 
-<!-- Features Grid — 核心能力 -->
-<section id="features" style="background:var(--bg-warm)">
-  <div class="container">
-    <div class="section-header center fade-up">
-      <span class="section-label" data-en="⚡ Features" data-zh="⚡ 核心能力">⚡ 核心能力</span>
-      <h2 class="section-title" data-en="Everything you need to engineer a Skill" data-zh="工程化构建 Skill 所需的一切">工程化构建 Skill 所需的一切</h2>
-      <p class="section-desc" data-en="From architecture planning to quality gates — one Skill covers the entire lifecycle." data-zh="从架构规划到质量门控——一个 Skill 覆盖全流程。">从架构规划到质量门控——一个 Skill 覆盖全流程。</p>
+<!-- ═══════════ 三个失效模式 ═══════════ -->
+<section class="failures">
+  <div class="wrap">
+    <div class="section-head center fade">
+      <div class="section-tag">🧠 核心设计决策</div>
+      <h2 class="section-title">三个失效模式，三个对抗决策</h2>
+      <p class="section-desc">Skill 质量劣化有三种系统性病因。每条规则都可追溯到真实事故。</p>
     </div>
-    <div class="features-grid">
-      <div class="feature-card fade-up">
-        <div class="feature-icon">📐</div>
-        <h3 data-en="Three-Layer Architecture" data-zh="三层模型架构">三层模型架构</h3>
-        <p data-en="L1 trigger words (~100 words, always loaded) · L2 workflow (≤300 lines, on activation) · L3 references (unlimited, on demand). Keeps context lean." data-zh="L1 触发词（~100词，始终加载）· L2 工作流（≤300行，激活时）· L3 参考文档（不限，按需读取）。保持 context 精简。">L1 触发词（~100词，始终加载）· L2 工作流（≤300行，激活时）· L3 参考文档（不限，按需读取）。保持 context 精简。</p>
+    <div class="failure-grid">
+      <div class="failure-card fade" data-icon="🫠">
+        <h3>规则膨胀</h3>
+        <p class="symptom">什么都想管 → 300行溢出 → 指令被忽略</p>
+        <span class="counter counter-accent">对抗：三层模型 L1/L2/L3</span>
       </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">🚪</div>
-        <h3 data-en="8-Stage Gate Workflow" data-zh="八阶段门控工作流">八阶段门控工作流</h3>
-        <p data-en="From understanding requirements to trigger word optimization — each stage has independent entry/exit conditions, no skipping allowed." data-zh="从理解需求到触发词优化——每个阶段有独立入口/出口条件，不满足不可跳过。">从理解需求到触发词优化——每个阶段有独立入口/出口条件，不满足不可跳过。</p>
+      <div class="failure-card fade" data-icon="🕳️">
+        <h3>规则遗忘</h3>
+        <p class="symptom">小改动不检查 → 质量在缝隙中劣化</p>
+        <span class="counter counter-green">对抗：阶段门控 · 入口/出口条件</span>
       </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">🛡️</div>
-        <h3 data-en="20 Anti-Patterns" data-zh="20条反模式清单">20条反模式清单</h3>
-        <p data-en="Structural bloat (5) · Process defects (5) · Rule quality (4) · Consistency (4) · Engineering standards (2). Each traced to a real incident." data-zh="结构膨胀类(5) · 流程缺陷类(5) · 规则质量类(4) · 一致性类(4) · 工程规范类(2)。每条可追溯到真实事故。">结构膨胀类(5) · 流程缺陷类(5) · 规则质量类(4) · 一致性类(4) · 工程规范类(2)。每条可追溯到真实事故。</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">✅</div>
-        <h3 data-en="23-Item Quality Checklist" data-zh="23项质量审计清单">23项质量审计清单</h3>
-        <p data-en="Format standards (9) · Structural health (10) · Content quality (7). Automated scanning + manual confirmation." data-zh="格式规范(9) · 结构健康(10) · 内容质量(7)。自动化扫描+人工确认，"目测没问题"不再是交付标准。">格式规范(9) · 结构健康(10) · 内容质量(7)。自动化扫描+人工确认，"目测没问题"不再是交付标准。</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">🔍</div>
-        <h3 data-en="Automated Audit Script" data-zh="自动化审计脚本">自动化审计脚本</h3>
-        <p data-en="One command scans everything — green/yellow/red output, 23 items checked one by one. Eyeballing is no longer a delivery standard." data-zh="一条命令全面扫描——绿/黄/红三色输出，23项逐条打勾。">一条命令全面扫描——绿/黄/红三色输出，23项逐条打勾。</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">🎯</div>
-        <h3 data-en="Trigger Word Optimization" data-zh="触发词优化">触发词优化</h3>
-        <p data-en="Scan for banned words, 5+ trigger variations in CN/EN, 10+10 accuracy test ≥85%. A missed trigger means your Skill doesn't exist." data-zh="扫禁止词、中英文触发词5+种、10+10准确率测试≥85%。漏触发意味着 Skill 等于不存在。">扫禁止词、中英文触发词5+种、10+10准确率测试≥85%。漏触发意味着 Skill 等于不存在。</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">🧪</div>
-        <h3 data-en="Eval Testing" data-zh="Eval 测试">Eval 测试</h3>
-        <p data-en="With/without Skill comparison — quantify actual effectiveness instead of guessing." data-zh="有/无 Skill 对比，量化实际效果，不凭感觉。">有/无 Skill 对比，量化实际效果，不凭感觉。</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">⚠️</div>
-        <h3 data-en="Stall Detection" data-zh="停滞循环检测">停滞循环检测</h3>
-        <p data-en="Built-in stale_count mechanism — escape infinite iteration traps with quantified signals." data-zh="内置 stale_count 机制——量化信号逃出无限迭代陷阱。">内置 stale_count 机制——量化信号逃出无限迭代陷阱。</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon">📏</div>
-        <h3 data-en="Verifiability Audit" data-zh="可验证性审查">可验证性审查</h3>
-        <p data-en="Transform subjective 'write high quality code' into objective 'lint passes, no errors'. Every instruction must be yes/no judgeable." data-zh="将主观的"写高质量代码"转化为客观的"lint 通过无 error"。每条指令必须可 yes/no 判断。">将主观的"写高质量代码"转化为客观的"lint 通过无 error"。每条指令必须可 yes/no 判断。</p>
+      <div class="failure-card fade" data-icon="💥">
+        <h3>规则冲突</h3>
+        <p class="symptom">新旧规则矛盾 → Agent 执行选错分支</p>
+        <span class="counter counter-blue">对抗：审计脚本 + 23项清单</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Comparison -->
-<section id="comparison" style="background:var(--bg-warm)">
-  <div class="container">
-    <div class="section-header center fade-up">
-      <span class="section-label" data-en="📊 Comparison" data-zh="📊 对比">📊 对比</span>
-      <h2 class="section-title" data-en="vs. writing Skills without guardrails" data-zh="对比无规范手写 Skill">对比无规范手写 Skill</h2>
+<!-- ═══════════ 核心能力 ═══════════ -->
+<section>
+  <div class="wrap">
+    <div class="section-head fade">
+      <div class="section-tag">⚡ 核心能力</div>
+      <h2 class="section-title">从架构到审计，一个 Skill 覆盖全流程</h2>
     </div>
-    <div class="comparison-wrapper fade-up">
-      <table class="comparison-table">
-        <thead><tr>
-          <th data-en="Dimension" data-zh="维度">维度</th>
-          <th>mu-skill-creator</th>
-          <th data-en="No guardrails" data-zh="无规范手写">无规范手写</th>
-        </tr></thead>
+    <div class="feature-list">
+      <div class="feature-item fade">
+        <div class="fi-icon">📐</div>
+        <div><h3>三层模型架构</h3><p>L1 触发词（~100词，始终加载）· L2 工作流（≤300行，激活时）· L3 参考文档（不限，按需读取）。Context 永远精简。</p></div>
+      </div>
+      <div class="feature-item fade">
+        <div class="fi-icon">🚪</div>
+        <div><h3>八阶段门控工作流</h3><p>从理解需求到触发词优化——每个阶段有独立入口/出口条件，不满足不可跳过。门控是结构约束，不是建议。</p></div>
+      </div>
+      <div class="feature-item fade">
+        <div class="fi-icon">🛡️</div>
+        <div><h3>20 条反模式清单</h3><p>结构膨胀(5) · 流程缺陷(5) · 规则质量(4) · 一致性(4) · 工程规范(2)。每条标注根因事故，不是死记令，是经验提炼。</p></div>
+      </div>
+      <div class="feature-item fade">
+        <div class="fi-icon">✅</div>
+        <div><h3>23 项质量审计清单</h3><p>格式规范(9) · 结构健康(10) · 内容质量(7)。自动化扫描 + 人工确认，"目测没问题"不再是交付标准。</p></div>
+      </div>
+      <div class="feature-item fade">
+        <div class="fi-icon">🔍</div>
+        <div><h3>自动化审计脚本</h3><p>一条命令 <code style="font-size:.78rem;background:var(--bg-warm);padding:2px 6px;border-radius:4px;">bash scripts/skill-audit.sh &lt;name&gt;</code> 全面扫描，绿/黄/红三色输出，23项逐条打勾。</p></div>
+      </div>
+      <div class="feature-item fade">
+        <div class="fi-icon">🎯</div>
+        <div><h3>触发词优化</h3><p>扫禁止词、中英文触发词 5+ 种、10+10 准确率测试 ≥85%。漏触发 = Skill 不存在。</p></div>
+      </div>
+      <div class="feature-item fade">
+        <div class="fi-icon">🧪</div>
+        <div><h3>Eval 测试</h3><p>有/无 Skill 对比，量化实际效果，不凭感觉。</p></div>
+      </div>
+      <div class="feature-item fade">
+        <div class="fi-icon">⚠️</div>
+        <div><h3>停滞循环检测</h3><p>内置 stale_count 机制——量化信号逃出无限迭代陷阱。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 八阶段工作流 ═══════════ -->
+<section class="workflow-section">
+  <div class="wrap">
+    <div class="section-head fade">
+      <div class="section-tag">🚀 创作工作流</div>
+      <h2 class="section-title">八个阶段，每步有门控</h2>
+      <p class="section-desc">从需求到交付，每个阶段有独立的出口条件，不达标不放行。</p>
+    </div>
+    <div class="timeline fade">
+      <div class="tl-item" data-step="1"><h4>理解需求</h4><span class="tl-exit">出口：输入输出示例 ≥3 条</span></div>
+      <div class="tl-item" data-step="1.5"><h4>找实践案例</h4><span class="tl-exit">出口：黄金案例 3+ / 失败案例 5+</span></div>
+      <div class="tl-item" data-step="2"><h4>规划架构</h4><span class="tl-exit">出口：文件树 + 架构模式确定</span></div>
+      <div class="tl-item" data-step="3"><h4>写 L1（description）</h4><span class="tl-exit">出口：触发词 + 不适用场景</span></div>
+      <div class="tl-item" data-step="4"><h4>写 L2（SKILL.md）</h4><span class="tl-exit">出口：≤300 行 + Checklist 全绿</span></div>
+      <div class="tl-item" data-step="5"><h4>写 L3（references/）</h4><span class="tl-exit">出口：引用仅一跳</span></div>
+      <div class="tl-item" data-step="6"><h4>可验证性审查</h4><span class="tl-exit">出口：全部 yes/no 判断</span></div>
+      <div class="tl-item" data-step="7"><h4>触发词优化</h4><span class="tl-exit">出口：accuracy ≥ 85%</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 反模式分类 ═══════════ -->
+<section>
+  <div class="wrap">
+    <div class="section-head center fade">
+      <div class="section-tag">🛡️ 20 条反模式</div>
+      <h2 class="section-title">五大类翻车姿势，逐条有根因</h2>
+      <p class="section-desc">每条可追溯到真实事故，不是"禁止X"的死记令。</p>
+    </div>
+    <div class="ap-grid fade">
+      <div class="ap-card"><h4>🫠 结构膨胀类</h4><p class="ap-count">5 条 — >250行膨胀 · 无数据量限制 · 大文件无截断 · IRON LAW套话 · 照搬通用模板</p></div>
+      <div class="ap-card"><h4>🕳️ 流程缺陷类</h4><p class="ap-count">5 条 — 阶段无编号 · 无完成门控 · 无确认门 · 无交付清单 · 循环无终止</p></div>
+      <div class="ap-card"><h4>📝 规则质量类</h4><p class="ap-count">4 条 — description写宣传语 · 不可验证指令 · 只有MUST没WHY · 留intro废话</p></div>
+      <div class="ap-card"><h4>🔗 一致性类</h4><p class="ap-count">4 条 — 多跳引用 · 冗余重复提示 · 无AP列表 · 重复造轮子</p></div>
+      <div class="ap-card"><h4>⚙️ 工程规范类</h4><p class="ap-count">2 条 — 无子Agent规范 · Shell无shebang/set-euo</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 对比 ═══════════ -->
+<section class="compare-section">
+  <div class="wrap">
+    <div class="section-head center fade">
+      <div class="section-tag">📊 对比</div>
+      <h2 class="section-title">vs. 无规范手写 Skill</h2>
+    </div>
+    <div class="fade" style="overflow-x:auto">
+      <table class="cmp-table">
+        <thead><tr><th>维度</th><th>mu-skill-creator</th><th>无规范手写</th></tr></thead>
         <tbody>
-          <tr><td data-en="Quality gates" data-zh="质量门控">质量门控</td><td data-en="✅ 23-item automated checklist" data-zh="✅ 23项自动化清单">✅ 23项自动化清单</td><td data-en="❌ Eyeballing only" data-zh="❌ 全靠目测">❌ 全靠目测</td></tr>
-          <tr><td data-en="Failure defense" data-zh="失效防御">失效防御</td><td data-en="✅ 3 modes + 20 APs" data-zh="✅ 3大模式+20条AP">✅ 3大模式+20条AP</td><td data-en="❌ Learn by crashing" data-zh="❌ 踩坑才知道">❌ 踩坑才知道</td></tr>
-          <tr><td data-en="Line control" data-zh="行数控制">行数控制</td><td data-en="✅ Three-layer model" data-zh="✅ 三层模型+拆分指导">✅ 三层模型+拆分指导</td><td data-en="❌ Grows forever" data-zh="❌ 越写越长">❌ 越写越长</td></tr>
-          <tr><td data-en="Stage management" data-zh="阶段管理">阶段管理</td><td data-en="✅ Entry/exit conditions" data-zh="✅ 入口/出口条件">✅ 入口/出口条件</td><td data-en="❌ Ad hoc" data-zh="❌ 想到哪写到哪">❌ 想到哪写到哪</td></tr>
-          <tr><td data-en="Audit repeatability" data-zh="审计可重复">审计可重复</td><td data-en="✅ Script + checklist" data-zh="✅ 脚本+清单">✅ 脚本+清单</td><td data-en="❌ Varies by person" data-zh="❌ 因人而异">❌ 因人而异</td></tr>
-          <tr><td data-en="Degradation chain" data-zh="降级链">降级链</td><td data-en="✅ Every dep has fallback" data-zh="✅ 每个依赖有兜底">✅ 每个依赖有兜底</td><td data-en="❌ Discover on failure" data-zh="❌ 出错才发现">❌ 出错才发现</td></tr>
-          <tr><td data-en="Known limitations" data-zh="已知局限">已知局限</td><td data-en="✅ Mandatory disclosure" data-zh="✅ 强制声明">✅ 强制声明</td><td data-en="❌ Silent suffering" data-zh="❌ 默默承受">❌ 默默承受</td></tr>
+          <tr><td>质量门控</td><td>✅ 23项自动化清单</td><td>❌ 全靠目测</td></tr>
+          <tr><td>失效防御</td><td>✅ 3大模式 + 20条AP</td><td>❌ 踩坑才知道</td></tr>
+          <tr><td>行数控制</td><td>✅ 三层模型 + 拆分指导</td><td>❌ 越写越长</td></tr>
+          <tr><td>阶段管理</td><td>✅ 入口/出口条件</td><td>❌ 想到哪写到哪</td></tr>
+          <tr><td>审计可重复</td><td>✅ 脚本 + 清单</td><td>❌ 因人而异</td></tr>
+          <tr><td>降级链</td><td>✅ 每个依赖有兜底</td><td>❌ 出错才发现</td></tr>
+          <tr><td>已知局限</td><td>✅ 强制声明</td><td>❌ 默默承受</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <div class="container">
-    <h2 data-en="⚡ Stop <em>eyeballing</em>.<br><span class='accent-text'>Start engineering.</span>" data-zh="⚡ 别再<em>目测</em>了。<br><span class='accent-text'>用工程方法。</span>">⚡ 别再<em>目测</em>了。<br><span class="accent-text">用工程方法。</span></h2>
-    <p data-en="🔥 Every rule traces back to a real incident. Every gate prevents a real failure." data-zh="🔥 每条规则都源于真实事故。每道门控都在阻止真实的失败。">🔥 每条规则都源于真实事故。每道门控都在阻止真实的失败。</p>
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta">
+  <div class="wrap fade">
+    <h2>⚡ 别再目测了。<br><em>用工程方法。</em></h2>
+    <p>🔥 每条规则都源于真实事故。每道门控都在阻止真实的失败。</p>
     <div class="hero-actions">
-      <a href="https://github.com/mupoet/mu-skill-creator" class="btn btn-primary" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> <span data-en="⭐ Star on GitHub" data-zh="⭐ 去 GitHub 点星">⭐ 去 GitHub 点星</span></a>
-      <a href="https://github.com/mupoet/mu-skill-creator/archive/refs/heads/main.zip" class="btn btn-secondary"><span data-en="📦 Download ZIP" data-zh="📦 下载 ZIP">📦 下载 ZIP</span></a>
+      <a href="https://github.com/mupoet/mu-skill-creator" class="btn btn-primary" target="_blank">⭐ 去 GitHub 点星</a>
+      <a href="https://github.com/mupoet/mu-skill-creator/archive/refs/heads/main.zip" class="btn btn-ghost">📦 下载 ZIP</a>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
+<!-- ═══════════ Footer ═══════════ -->
 <footer>
-  <div class="container">
+  <div class="wrap">
     <div class="footer-links">
       <a href="https://github.com/mupoet/mu-skill-creator" target="_blank">GitHub</a>
-      <a href="https://github.com/mupoet/mu-skill-creator/discussions" target="_blank" data-en="Discussions" data-zh="讨论区">讨论区</a>
-      <a href="https://github.com/mupoet/mu-skill-creator/issues" target="_blank" data-en="Issues" data-zh="问题反馈">问题反馈</a>
+      <a href="https://github.com/mupoet/mu-skill-creator/discussions" target="_blank">讨论区</a>
+      <a href="https://github.com/mupoet/mu-skill-creator/issues" target="_blank">问题反馈</a>
     </div>
-    <p class="footer-copy">©️ <a href="https://github.com/mupoet">木先生iPPT</a> · 📚 作品 <a href="https://item.m.jd.com/product/14547345.html">《图解团队管理》</a> · 💡 <a href="https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA">微信公众号</a> / <a href="https://xhslink.com/m/ESxtgUNMdl">小红书</a>：muippt</p>
+    <p class="footer-copy">©️ <a href="https://github.com/mupoet">木先生iPPT</a> · 📚 <a href="https://item.m.jd.com/product/14547345.html">《图解团队管理》</a> · 💡 <a href="https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA">公众号</a> / <a href="https://xhslink.com/m/ESxtgUNMdl">小红书</a>：muippt</p>
   </div>
 </footer>
 
 <script>
-(function(){
-  var cl=(navigator.language||'').toLowerCase().startsWith('zh')?'zh':'en';
-  var storageKey='mu-skill-creator-lang';
-  var s=localStorage.getItem(storageKey);
-  if(s==='en'||s==='zh') cl=s;
-  function apply(l){
-    cl=l;localStorage.setItem(storageKey,l);
-    document.documentElement.lang=l==='zh'?'zh-CN':'en';
-    document.querySelectorAll('[data-'+l+']').forEach(function(e){
-      var v=e.getAttribute('data-'+l);if(v!==null)e.innerHTML=v;
-    });
-    document.querySelectorAll('.lang-switch span').forEach(function(s){
-      s.classList.toggle('active',s.getAttribute('data-lang')===l);
-    });
-  }
-  apply(cl);
-  document.getElementById('langSwitch').addEventListener('click',function(e){
-    var t=e.target.closest('[data-lang]');if(!t)return;
-    var l=t.getAttribute('data-lang');if(l!==cl) apply(l);
-  });
-})();
-/* Scroll Animation */
-var obs=new IntersectionObserver(function(es){
-  es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.fade-up').forEach(function(e){obs.observe(e);});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
