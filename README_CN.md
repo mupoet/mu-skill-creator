@@ -161,7 +161,7 @@ bash scripts/skill-audit.sh <skill-name>
 
 [![Star History Chart](https://api.star-history.com/svg?repos=mupoet/mu-skill-creator&type=Date)](https://star-history.com/#mupoet/mu-skill-creator&Date)
 
-> 因为"看起来没问题"不是质量门控。
+> 不是"写个 Skill 文件"，是"用工程脚手架让 Skill 从创作到审计全流程不翻车"。
 
 ### 👤 作者简介
 

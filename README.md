@@ -161,7 +161,7 @@ If this quality framework saved you from publishing a broken skill, consider giv
 
 [![Star History Chart](https://api.star-history.com/svg?repos=mupoet/mu-skill-creator&type=Date)](https://star-history.com/#mupoet/mu-skill-creator&Date)
 
-> Because "it looks fine" is not a quality gate.
+> Not just "writing a Skill file" — it's "engineering scaffolding that keeps Skills from failing across the entire creation-to-audit lifecycle."
 
 ### 👤 About the Author
 
