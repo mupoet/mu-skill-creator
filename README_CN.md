@@ -164,7 +164,7 @@ bash scripts/skill-audit.sh <skill-name>
 
 > 因为"看起来没问题"不是质量门控。
 
-## 作者
+### 👤 作者简介
 
 🎓 清华大学出版社签约作家 / 2026当当影响力作家 / 某互联网大厂 AI 大模型业务 HR 砖家 / 一级人力资源管理师 / 二级心理咨询师 / 野生设计师
 
@@ -172,7 +172,7 @@ bash scripts/skill-audit.sh <skill-name>
 
 💡 [微信公众号](https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA) / [小红书](https://xhslink.com/m/ESxtgUNMdl)：muippt
 
-## 许可证与致谢
+### 📄 许可证与致谢
 
 [MIT](LICENSE) © 2025 木老师 (Mr. Mu)
 
