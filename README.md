@@ -70,54 +70,19 @@ Organized into three categories for full-spectrum quality coverage:
 
 **Content Quality (7 items)**: Cross-section consistency · information redundancy · interaction consistency · copy quality · degradation chain · known limitations disclosure · stall detection
 
-### 🛡️ 20 Anti-Patterns (AP-1 ~ AP-20)
+### 🛡️ 20 Anti-Pattern Checklist
 
-Each pattern traces to a real incident and maps to a design principle — not "don't do X" memorization, but "why X crashes" experience. Grouped into 5 categories:
+Each pattern traces to a real incident and maps to a design principle — not "don't do X" memorization, but "why X crashes" experience:
 
-**Structural Bloat (5)**
+**Structural Bloat (5)**: >250 lines bloat | No data volume limits | Large files without truncation | IRON LAW is boilerplate | IRON LAW copies generic template
 
-| # | Anti-Pattern | Root Cause Incident |
-|---|---|---|
-| 1 | >250 lines bloat | Hunter skill at 418 lines — Agent ignored latter half |
-| 4 | Multi-hop references A→B→C | Interview skill 3-layer nesting — Agent forgot context |
-| 9 | IRON LAW is boilerplate | Multiple skills wrote "shebang+lines" — all ignored |
-| 13 | No data volume limits | Scout skill 91 serial queries — timeout |
-| 15 | Large files without truncation | Reading large files — context overflow |
+**Process Defects (5)**: Stages without numbering/exit | No completion gate | No Confirmation Gate | No Pre-Delivery Checklist | Loop without termination
 
-**Process Defects (5)**
+**Rule Quality (4)**: Description as marketing copy | Unverifiable instructions | Rules have MUST but no WHY | SKILL.md retains intro
 
-| # | Anti-Pattern | Root Cause Incident |
-|---|---|---|
-| 3 | Stages without numbering/exit | Sub-agent skipped steps, couldn't judge progress |
-| 5 | No completion gate | Audit finished without confirmation — shipped broken |
-| 7 | No Confirmation Gate | 6/22 published without waiting for approval |
-| 8 | No Pre-Delivery Checklist | Discovered missing security scan after release |
-| 12 | Loop without termination | 6/17 serial CLI — no upper bound timeout |
+**Consistency (4)**: Multi-hop references A→B→C | Redundant repeated prompts | No AP list | Reinventing the wheel
 
-**Rule Quality (4)**
-
-| # | Anti-Pattern | Root Cause Incident |
-|---|---|---|
-| 2 | Description as marketing copy | Wrote "efficient & convenient" — couldn't trigger |
-| 6 | Unverifiable instructions | "High-quality review" — Agent self-declared pass |
-| 10 | No AP list | New skills kept making same mistakes |
-| 19 | Rules have MUST but no WHY | Agent memorized prohibition — picked wrong path at edge case |
-
-**Consistency (4)**
-
-| # | Anti-Pattern | Root Cause Incident |
-|---|---|---|
-| 14 | Redundant repeated prompts | Same rule in SKILL.md + references — caused conflicts |
-| 16 | SKILL.md retains intro | Modified intro locally — online version not synced |
-| 18 | Reinventing the wheel | Multiple skills each doing SSO exchange — one missed update |
-| 20 | IRON LAW copies generic template | 5 boilerplate rules — Agent ignored all |
-
-**Engineering Standards (2)**
-
-| # | Anti-Pattern | Root Cause Incident |
-|---|---|---|
-| 11 | No sub-agent execution spec | Sub-agent skipped steps / invented formats |
-| 17 | Shell without shebang/set-euo | Script failed silently — Agent assumed success |
+**Engineering Standards (2)**: No sub-agent execution spec | Shell without shebang/set-euo
 
 ### 🔍 Automated Audit Script
 
