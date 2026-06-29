@@ -93,14 +93,18 @@
     .layer-badge.l2{background:rgba(90,122,154,0.1);color:var(--blue)}
     .layer-badge.l3{background:rgba(122,106,154,0.1);color:var(--purple)}
 
-    /* AP grid */
-    .ap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .ap-item{display:flex;gap:12px;padding:16px 18px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--border-light);transition:all var(--transition)}
-    .ap-item:hover{border-color:var(--accent);background:var(--bg-warm)}
-    .ap-num{flex-shrink:0;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;background:var(--bg-warm);color:var(--text-muted)}
-    .ap-content{flex:1}
-    .ap-content strong{font-size:0.85rem;display:block;margin-bottom:2px}
-    .ap-content span{font-size:0.78rem;color:var(--text-muted)}
+    /* AP categories */
+    .ap-categories{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .ap-category-card{padding:24px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border-light);transition:all var(--transition)}
+    .ap-category-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.04)}
+    .ap-category-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+    .ap-category-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+    .ap-category-header h3{font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:8px}
+    .ap-count{padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:600;background:var(--accent-bg);color:var(--accent)}
+    .ap-list{list-style:none;padding:0}
+    .ap-list li{font-size:0.82rem;color:var(--text-secondary);padding:6px 0;border-bottom:1px solid var(--border-light);line-height:1.5}
+    .ap-list li:last-child{border-bottom:none}
+    .ap-list li::before{content:"⚠";margin-right:8px;font-size:0.72rem}
 
     /* Workflow */
     .workflow-timeline{position:relative;max-width:640px;margin:0 auto}
@@ -164,7 +168,7 @@
     @media(max-width:768px){
       .stats{grid-template-columns:repeat(2,1fr)}
       .decisions-grid{grid-template-columns:1fr}
-      .ap-grid{grid-template-columns:1fr}
+      .ap-categories{grid-template-columns:1fr}
       .checklist-cols{grid-template-columns:1fr}
       .nav-links{display:none}
       .hero{padding:120px 0 80px}
@@ -228,19 +232,48 @@
 <h2 class="section-title"><span data-en="20 ways to fail — and how not to" data-zh="20种翻车姿势——以及如何避免">20种翻车姿势——以及如何避免</span></h2>
 <p class="section-desc"><span data-en="Each anti-pattern is traced to a real incident. Not dogma, but distilled experience from real failures." data-zh="每条反模式都可追溯到真实事故。不是“禁止X”的死记令，而是“为什么X会翻车”的经验提炼。">每条反模式都可追溯到真实事故。不是“禁止X”的死记令，而是“为什么X会翻车”的经验提炼。</span></p>
 </div>
-<div class="ap-grid">
-<div class="ap-item"><div class="ap-num" style="background:var(--accent-bg);color:var(--accent)">膨胀</div><div class="ap-content"><strong><span data-en=">250 line bloat" data-zh=">250行膨胀">超250行膨胀</span></strong><span><span data-en="Agent ignores latter half of instructions" data-zh="Agent忽略后半段指令">Agent忽略后半段指令</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:var(--accent-bg);color:var(--accent)">膨胀</div><div class="ap-content"><strong><span data-en="IRON LAW is boilerplate" data-zh="IRON LAW是套话">IRON LAW是套话</span></strong><span><span data-en="Generic constraints ignored entirely" data-zh="通用约束占行数不激活">通用约束占行数不激活</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:rgba(90,138,106,0.1);color:var(--green)">流程</div><div class="ap-content"><strong><span data-en="No stage numbering/exit" data-zh="阶段无编号/出口">阶段无编号/出口</span></strong><span><span data-en="Sub-agent skips steps, can't judge progress" data-zh="子Agent跳步判不了进度">子Agent跳步判不了进度</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:rgba(90,138,106,0.1);color:var(--green)">流程</div><div class="ap-content"><strong><span data-en="No Confirmation Gate" data-zh="无Confirmation Gate">无Confirmation Gate</span></strong><span><span data-en="Published without approval" data-zh="未等确认自作主张发布">未等确认自作主张发布</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:rgba(90,122,154,0.1);color:var(--blue)">规则</div><div class="ap-content"><strong><span data-en="Description as marketing copy" data-zh="description写宣传语">description写宣传语</span></strong><span><span data-en="Trigger becomes ad, can't route" data-zh="触发器变广告无法路由">触发器变广告无法路由</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:rgba(90,122,154,0.1);color:var(--blue)">规则</div><div class="ap-content"><strong><span data-en="Rules have MUST but no WHY" data-zh="规则只有MUST没WHY">规则只有MUST没WHY</span></strong><span><span data-en="Agent picks wrong path at edge cases" data-zh="遇边界死记令选错">遇边界死记令选错</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:rgba(122,106,154,0.1);color:var(--purple)">一致</div><div class="ap-content"><strong><span data-en="Multi-hop references A→B→C" data-zh="多跳引用A→B→C">多跳引用A→B→C</span></strong><span><span data-en="3-layer nesting causes Agent to forget" data-zh="3层嵌套Agent遗忘">3层嵌套Agent遗忘</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:rgba(122,106,154,0.1);color:var(--purple)">一致</div><div class="ap-content"><strong><span data-en="Reinventing the wheel" data-zh="重复造轮子">重复造轮子</span></strong><span><span data-en="Multiple skills duplicate logic, one missed update" data-zh="多Skill各自实现改一处漏一处">多Skill各自实现改一处漏一处</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:rgba(90,80,60,0.08);color:#6b5b3e">工程</div><div class="ap-content"><strong><span data-en="No sub-agent execution spec" data-zh="无子Agent执行规范">无子Agent执行规范</span></strong><span><span data-en="Sub-agent skips steps or invents formats" data-zh="子Agent跳步/自创格式">子Agent跳步/自创格式</span></span></div></div>
-<div class="ap-item"><div class="ap-num" style="background:rgba(90,80,60,0.08);color:#6b5b3e">工程</div><div class="ap-content"><strong><span data-en="Shell without shebang/set-euo" data-zh="Shell无shebang/set-euo">Shell无shebang/set-euo</span></strong><span><span data-en="Script fails silently, Agent assumes success" data-zh="脚本静默失败Agent以为成功">脚本静默失败Agent以为成功</span></span></div></div>
+<div class="ap-categories">
+<div class="ap-category-card" style="border-top:3px solid var(--accent)">
+<div class="ap-category-header"><span class="ap-category-icon" style="background:var(--accent-bg);color:var(--accent)">📐</span><h3><span data-en="Structural Bloat" data-zh="结构膨胀类">结构膨胀类</span><span class="ap-count">5</span></h3></div>
+<ul class="ap-list">
+<li><span data-en=">250 line bloat" data-zh=">250行膨胀">>250行膨胀</span></li>
+<li><span data-en="No data volume limits" data-zh="无数据量限制">无数据量限制</span></li>
+<li><span data-en="Large files without truncation" data-zh="大文件无截断">大文件无截断</span></li>
+<li><span data-en="IRON LAW is boilerplate" data-zh="IRON LAW是套话">IRON LAW是套话</span></li>
+<li><span data-en="IRON LAW copies generic template" data-zh="IRON LAW照搬通用模板">IRON LAW照搬通用模板</span></li>
+</ul></div>
+<div class="ap-category-card" style="border-top:3px solid var(--green)">
+<div class="ap-category-header"><span class="ap-category-icon" style="background:rgba(90,138,106,0.08);color:var(--green)">🚪</span><h3><span data-en="Process Defects" data-zh="流程缺陷类">流程缺陷类</span><span class="ap-count">5</span></h3></div>
+<ul class="ap-list">
+<li><span data-en="Stages without numbering/exit" data-zh="阶段无编号/出口">阶段无编号/出口</span></li>
+<li><span data-en="No completion gate" data-zh="无完成门控">无完成门控</span></li>
+<li><span data-en="No Confirmation Gate" data-zh="无Confirmation Gate">无Confirmation Gate</span></li>
+<li><span data-en="No Pre-Delivery Checklist" data-zh="无Pre-Delivery Checklist">无Pre-Delivery Checklist</span></li>
+<li><span data-en="Loop without termination" data-zh="循环无终止条件">循环无终止条件</span></li>
+</ul></div>
+<div class="ap-category-card" style="border-top:3px solid var(--blue)">
+<div class="ap-category-header"><span class="ap-category-icon" style="background:rgba(90,122,154,0.08);color:var(--blue)">📝</span><h3><span data-en="Rule Quality" data-zh="规则质量类">规则质量类</span><span class="ap-count">4</span></h3></div>
+<ul class="ap-list">
+<li><span data-en="Description as marketing copy" data-zh="description写宣传语">description写宣传语</span></li>
+<li><span data-en="Unverifiable instructions" data-zh="不可验证指令">不可验证指令</span></li>
+<li><span data-en="Rules have MUST but no WHY" data-zh="规则只有MUST没WHY">规则只有MUST没WHY</span></li>
+<li><span data-en="SKILL.md retains intro" data-zh="SKILL.md留intro">SKILL.md留intro</span></li>
+</ul></div>
+<div class="ap-category-card" style="border-top:3px solid var(--purple)">
+<div class="ap-category-header"><span class="ap-category-icon" style="background:rgba(122,106,154,0.08);color:var(--purple)">🔗</span><h3><span data-en="Consistency" data-zh="一致性类">一致性类</span><span class="ap-count">4</span></h3></div>
+<ul class="ap-list">
+<li><span data-en="Multi-hop references A→B→C" data-zh="多跳引用A→B→C">多跳引用A→B→C</span></li>
+<li><span data-en="Redundant repeated prompts" data-zh="冗余重复提示">冗余重复提示</span></li>
+<li><span data-en="No AP list" data-zh="无AP列表">无AP列表</span></li>
+<li><span data-en="Reinventing the wheel" data-zh="重复造轮子">重复造轮子</span></li>
+</ul></div>
+<div class="ap-category-card" style="border-top:3px solid #6b5b3e">
+<div class="ap-category-header"><span class="ap-category-icon" style="background:rgba(90,80,60,0.06);color:#6b5b3e">⚙️</span><h3><span data-en="Engineering Standards" data-zh="工程规范类">工程规范类</span><span class="ap-count">2</span></h3></div>
+<ul class="ap-list">
+<li><span data-en="No sub-agent execution spec" data-zh="无子Agent执行规范">无子Agent执行规范</span></li>
+<li><span data-en="Shell without shebang/set-euo" data-zh="Shell无shebang/set-euo">Shell无shebang/set-euo</span></li>
+</ul></div>
 </div>
-<p style="text-align:center;margin-top:24px;font-size:0.82rem;color:var(--text-muted)"><span data-en="2 per category across 5 categories (Bloat · Process · Rules · Consistency · Engineering). Full 20 in" data-zh="5大分类各选2条代表（膨胀 · 流程 · 规则 · 一致 · 工程），完整20条见">5大分类各选2条代表（膨胀 · 流程 · 规则 · 一致 · 工程），完整20条见</span> <a href="https://github.com/mupoet/mu-skill-creator/blob/main/README_CN.md#%EF%B8%8F-20%E6%9D%A1%E5%8F%8D%E6%A8%A1%E5%BC%8F%E6%B8%85%E5%8D%95">README</a></p>
 </div></section>
 <section id="workflow"><div class="container">
 <div class="section-header center"><div class="section-label"><span data-en="🎯 Creation Workflow" data-zh="🎯 创作工作流">🎯 创作工作流</span></div>
@@ -264,37 +297,37 @@
 <p class="section-desc"><span data-en="Automated scanning + manual confirmation. &quot;Looks fine&quot; is no longer a delivery standard." data-zh="自动化扫描+人工确认。“目测没问题”不再是交付标准。">自动化扫描+人工确认。“目测没问题”不再是交付标准。</span></p>
 </div>
 <div class="checklist-cols">
-<div class="checklist-group"><h4><span data-en="📋 Format" data-zh="📋 格式规范">📋 格式规范</span> <span class="badge"><span data-en="9 items" data-zh="9项">9项</span></span></h4><ul>
-<li><span data-en="IRON LAW: domain-specific constraints" data-zh="IRON LAW：业务专属约束">IRON LAW：业务专属约束</span></li>
-<li><span data-en="description: single line, no emoji" data-zh="description：单行无emoji">description：单行无emoji</span></li>
-<li><span data-en="name: lowercase + hyphen + matches dir" data-zh="name：小写连字符，与目录名一致">name：小写连字符，与目录名一致</span></li>
-<li><span data-en="Line count ≤ 300" data-zh="行数≤300">行数≤300</span></li>
-<li><span data-en="All stages numbered with gates" data-zh="所有阶段编号+门控">所有阶段编号+门控</span></li>
-<li><span data-en="No hardcoded credentials" data-zh="无硬编码凭据">无硬编码凭据</span></li>
-<li><span data-en="Confirmation Gate for mutations" data-zh="改动类有确认门控">改动类有确认门控</span></li>
-<li><span data-en="Sub-agent spec ≤30 lines" data-zh="子Agent规范≤30行">子Agent规范≤30行</span></li>
-<li><span data-en="Security: no sensitive info" data-zh="安全：无人员信息/保密信息">安全：无人员信息/保密信息</span></li>
+<div class="checklist-group"><h4><span data-en="📋 Format Standards" data-zh="📋 格式规范">📋 格式规范</span> <span class="badge"><span data-en="9 items" data-zh="9项">9项</span></span></h4><ul>
+<li><span data-en="IRON LAW domain-specific constraints" data-zh="IRON LAW 专属约束">IRON LAW 专属约束</span></li>
+<li><span data-en="description single-line no-emoji" data-zh="description 单行无emoji">description 单行无emoji</span></li>
+<li><span data-en="Naming conventions" data-zh="命名规范">命名规范</span></li>
+<li><span data-en="Line budget control" data-zh="行数控制">行数控制</span></li>
+<li><span data-en="Stage numbering" data-zh="阶段编号">阶段编号</span></li>
+<li><span data-en="Sub-agent spec" data-zh="子Agent规范">子Agent规范</span></li>
+<li><span data-en="Confirmation Gate" data-zh="Confirmation Gate">Confirmation Gate</span></li>
+<li><span data-en="Security scan" data-zh="安全扫描">安全扫描</span></li>
+<li><span data-en="No real credentials" data-zh="无真实凭据">无真实凭据</span></li>
 </ul></div>
-<div class="checklist-group"><h4><span data-en="🏗️ Structure" data-zh="🏗️ 结构健康">🏗️ 结构健康</span> <span class="badge"><span data-en="10 items" data-zh="10项">10项</span></span></h4><ul>
-<li><span data-en="No logic conflicts between rules" data-zh="新旧规则无矛盾">新旧规则无矛盾</span></li>
-<li><span data-en="No duplicate content across files" data-zh="同一内容未双源存储">同一内容未双源存储</span></li>
-<li><span data-en="No zombie files in references/" data-zh="无僵尸文件">无僵尸文件</span></li>
-<li><span data-en="No broken references" data-zh="无断链引用">无断链引用</span></li>
-<li><span data-en="No stale paths after renames" data-zh="改名后路径已同步">改名后路径已同步</span></li>
-<li><span data-en="No user-state data bundled" data-zh="无用户态数据混入">无用户态数据混入</span></li>
-<li><span data-en="No hardcoded values in scripts" data-zh="脚本无硬编码隐患">脚本无硬编码隐患</span></li>
-<li><span data-en="No feature regressions" data-zh="无功能退化">无功能退化</span></li>
-<li><span data-en="Version number matches changes" data-zh="版本号与改动匹配">版本号与改动匹配</span></li>
-<li><span data-en="references/ index complete" data-zh="references/索引完整">references/索引完整</span></li>
+<div class="checklist-group"><h4><span data-en="🏗️ Structural Health" data-zh="🏗️ 结构健康">🏗️ 结构健康</span> <span class="badge"><span data-en="10 items" data-zh="10项">10项</span></span></h4><ul>
+<li><span data-en="Logic conflicts" data-zh="逻辑冲突">逻辑冲突</span></li>
+<li><span data-en="Template dual-source detection" data-zh="模板双源检测">模板双源检测</span></li>
+<li><span data-en="Zombie files" data-zh="僵尸文件">僵尸文件</span></li>
+<li><span data-en="Broken references" data-zh="断链引用">断链引用</span></li>
+<li><span data-en="Path sync" data-zh="路径同步">路径同步</span></li>
+<li><span data-en="User-data isolation" data-zh="用户态数据隔离">用户态数据隔离</span></li>
+<li><span data-en="Hardcoded detection" data-zh="硬编码检测">硬编码检测</span></li>
+<li><span data-en="Feature regression guard" data-zh="功能退化防护">功能退化防护</span></li>
+<li><span data-en="Version matching" data-zh="版本号匹配">版本号匹配</span></li>
+<li><span data-en="Index completeness" data-zh="索引完整性">索引完整性</span></li>
 </ul></div>
-<div class="checklist-group"><h4><span data-en="📝 Content" data-zh="📝 内容质量">📝 内容质量</span> <span class="badge"><span data-en="7 items" data-zh="7项">7项</span></span></h4><ul>
+<div class="checklist-group"><h4><span data-en="📝 Content Quality" data-zh="📝 内容质量">📝 内容质量</span> <span class="badge"><span data-en="7 items" data-zh="7项">7项</span></span></h4><ul>
 <li><span data-en="Cross-section consistency" data-zh="跨章节一致性">跨章节一致性</span></li>
-<li><span data-en="No redundant info collection" data-zh="无冗余信息收集">无冗余信息收集</span></li>
-<li><span data-en="Interaction flow consistency" data-zh="交互流程无矛盾">交互流程无矛盾</span></li>
-<li><span data-en="Copy quality: no typos/ambiguity" data-zh="文案无错别字/歧义">文案无错别字/歧义</span></li>
-<li><span data-en="Degradation chain complete" data-zh="降级链完整">降级链完整</span></li>
-<li><span data-en="Known limitations disclosed" data-zh="已知局限已披露">已知局限已披露</span></li>
-<li><span data-en="Stall detection for loops" data-zh="循环有停滞检测">循环有停滞检测</span></li>
+<li><span data-en="Information redundancy elimination" data-zh="信息冗余消除">信息冗余消除</span></li>
+<li><span data-en="Interaction consistency" data-zh="交互一致性">交互一致性</span></li>
+<li><span data-en="Copy quality" data-zh="文案质量">文案质量</span></li>
+<li><span data-en="Degradation chain completeness" data-zh="降级链完整性">降级链完整性</span></li>
+<li><span data-en="Known limitations disclosure" data-zh="已知局限披露">已知局限披露</span></li>
+<li><span data-en="Stall detection mechanism" data-zh="停滞检测机制">停滞检测机制</span></li>
 </ul></div>
 </div>
 </div></section>
