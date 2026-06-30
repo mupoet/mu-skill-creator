@@ -4,10 +4,13 @@
 
 # 🦐 mu-skill-creator
 
-> An AI agent skill that creates and audits other skills — with a 3-layer architecture model, 8-stage gated workflow, and 23-item quality checklist that turns "it looks fine" into verifiable engineering.
+> An AI agent skill that creates and audits other skills — with a 3-layer architecture model, 8-stage gated workflow, and 49-item 10-layer audit model that turns "it looks fine" into verifiable engineering.
 
 **English** | [中文](README_CN.md) | [🌐 Landing Page](https://mupoet.github.io/mu-skill-creator/)
 
+[![WeChat](https://img.shields.io/badge/muippt-07C160?logo=wechat&logoColor=white)](https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA)
+[![Xiaohongshu](https://img.shields.io/badge/muippt-FF2442?logo=xiaohongshu&logoColor=white)](https://xhslink.com/m/ESxtgUNMdl)
+[![Book](https://img.shields.io/badge/Book-Visual%20Team%20Management-BBDDE5?logo=bookstack&logoColor=white)](https://item.m.jd.com/product/14547345.html)
 [![License](https://img.shields.io/github/license/mupoet/mu-skill-creator)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/mupoet/mu-skill-creator)](https://github.com/mupoet/mu-skill-creator/stargazers)
 [![Version](https://img.shields.io/github/v/release/mupoet/mu-skill-creator)](https://github.com/mupoet/mu-skill-creator/releases)
@@ -16,7 +19,7 @@
 
 - 🆕 **Create a New Skill** — "I want to build an interview review skill" → Full 8-stage guided workflow from requirements to audit
 - 🔧 **Optimize an Existing Skill** — "This skill loops forever" → Pinpoint AP-12, add termination conditions
-- 🛡️ **Quality Audit** — "Check this skill for issues" → Run 23-item checklist, red/yellow/green per item
+- 🛡️ **Quality Audit** — "Check this skill for issues" → Run 49-item 10-layer checklist, red/yellow/green per item
 - 📏 **Line Budget Enforcement** — "SKILL.md is too long" → Split using 3-layer model, only if no quality loss
 - 🔍 **Trigger Word Tuning** — "Agent never activates my skill" → Optimize description + run ≥85% accuracy test
 - 🧪 **Run Eval Tests** — With/without skill comparison to quantify actual effectiveness
@@ -60,29 +63,38 @@ Every skill passes through eight stages, each with explicit entry/exit criteria 
 | 6 | Verifiability Review | All instructions convertible to yes/no |
 | 7 | Trigger Optimization | accuracy ≥85% |
 
-### ✅ 23-Item Quality Checklist
+### ✅ 49-Item 10-Layer Audit Model
 
-Organized into three categories for full-spectrum quality coverage:
+Organized into 10 layers for full-spectrum quality coverage, with 26 items automatable via script:
 
-**Format Standards (9 items)**: IRON LAW domain-specific constraints · description single-line no-emoji · naming conventions · line budget control · stage numbering · sub-agent execution spec · Confirmation Gate · security scan · no real credentials
+| Layer | Audit Target | Items | Auto |
+|---|---|---|---|
+| L1 | Document Structure | 6 | 4 |
+| L2 | Architecture Consistency | 5 | 2 |
+| L3 | Code Quality | 8 | 6 |
+| L4 | Cross-file Consistency | 3 | 0 |
+| L5 | Doc ↔ Code Alignment | 2 | 2 |
+| L6 | Dependency Integrity | 3 | 2 |
+| L7 | File Hygiene | 6 | 5 |
+| L8 | Security Compliance | 4 | 3 |
+| L9 | Robustness & Degradation | 7 | 1 |
+| L10 | Content Quality | 5 | 1 |
 
-**Structural Health (10 items)**: Logic conflicts · template dual-source · zombie files · broken references · path orphans · user-data isolation · hardcoded values · feature regression · version matching · references index
-
-**Content Quality (7 items)**: Cross-section consistency · information redundancy · interaction consistency · copy quality · degradation chain · known limitations disclosure · stall detection
-
-### 🛡️ 20 Anti-Pattern Checklist
+### 🛡️ 32 Anti-Patterns (AP-1 ~ AP-32)
 
 Each pattern traces to a real incident and maps to a design principle — not "don't do X" memorization, but "why X crashes" experience:
 
-**Structural Bloat (5)**: >250 lines bloat | No data volume limits | Large files without truncation | IRON LAW is boilerplate | IRON LAW copies generic template
-
-**Process Defects (5)**: Stages without numbering/exit | No completion gate | No Confirmation Gate | No Pre-Delivery Checklist | Loop without termination
-
-**Rule Quality (4)**: Description as marketing copy | Unverifiable instructions | Rules have MUST but no WHY | SKILL.md retains intro
-
-**Consistency (4)**: Multi-hop references A→B→C | Redundant repeated prompts | No AP list | Reinventing the wheel
-
-**Engineering Standards (2)**: No sub-agent execution spec | Shell without shebang/set-euo
+| # | Anti-Pattern | Root Cause |
+|---|---|---|
+| 1 | >250 lines bloat | Agent ignores latter half of instructions |
+| 2 | Description as marketing copy | Trigger becomes an ad, can't route-match |
+| 3 | Stages without numbering/exit | Sub-agent can't track progress |
+| 7 | No Confirmation Gate | Executes without waiting for approval |
+| 9 | IRON LAW is boilerplate | Generic constraints waste line budget |
+| 12 | Loop without termination | Serial CLI runs with no upper bound |
+| 21 | Frontmatter contains real MIS | Public skill exposes creator identity |
+| 23 | eval/exec on user input | Code injection risk |
+| 32 | Missing .gitignore with scripts/ | Platform artifacts leak into repo |
 
 ### 🔍 Automated Audit Script
 
@@ -90,7 +102,7 @@ Each pattern traces to a real incident and maps to a design principle — not "d
 bash scripts/skill-audit.sh <skill-name>
 ```
 
-Per-item scan, green/yellow/red output, 23 items checked one by one — "it looks fine" is no longer a delivery standard.
+Per-item scan, green/yellow/red output, 49 items across 10 layers checked one by one — "it looks fine" is no longer a delivery standard.
 
 ## 📌 Comparison
 
@@ -98,8 +110,8 @@ Per-item scan, green/yellow/red output, 23 items checked one by one — "it look
 
 | Dimension | mu-skill-creator | Manual Creation |
 |---|---|---|
-| Quality Gates | ✅ 23-item automated checklist | ❌ Eyeballing only |
-| Failure Mode Defense | ✅ 3 modes + 20 anti-patterns | ❌ Learn by crashing |
+| Quality Gates | ✅ 49-item 10-layer automated checklist | ❌ Eyeballing only |
+| Failure Mode Defense | ✅ 3 modes + 32 anti-patterns | ❌ Learn by crashing |
 | Line Budget | ✅ 3-layer model + split guidance | ❌ Grows forever |
 | Stage Management | ✅ Entry/exit criteria enforced | ❌ Write as you go |
 | Audit Repeatability | ✅ Script + checklist | ❌ Varies by person |
@@ -111,7 +123,7 @@ Per-item scan, green/yellow/red output, 23 items checked one by one — "it look
 | Dimension | mu-skill-creator | Simple Template |
 |---|---|---|
 | Design Decision Explanation | ✅ WHY + root cause incidents | ❌ Template only |
-| Anti-Pattern Defense | ✅ 20 APs with fix examples | ❌ None |
+| Anti-Pattern Defense | ✅ 32 APs with fix examples | ❌ None |
 | Stall Detection | ✅ Quantitative signals + structure change | ❌ None |
 | Trigger Optimization | ✅ accuracy ≥85% testing | ❌ By feel |
 | Extensibility | ✅ references/ on-demand loading | ❌ Single file |
@@ -130,7 +142,7 @@ Per-item scan, green/yellow/red output, 23 items checked one by one — "it look
 
 | Item | Description |
 |---|---|
-| Runtime | OpenClaw framework (native support, compatible with all deployment modes) |
+| Runtime | Agent framework (native support, compatible with all deployment modes) |
 | Audit Script | Bash (`skill-audit.sh`) |
 | Core Output | SKILL.md + references/ + scripts/ + evals/ |
 | Design Philosophy | 3-layer model + stage gating + audit script |
@@ -161,9 +173,9 @@ If this quality framework saved you from publishing a broken skill, consider giv
 
 [![Star History Chart](https://api.star-history.com/svg?repos=mupoet/mu-skill-creator&type=Date)](https://star-history.com/#mupoet/mu-skill-creator&Date)
 
-> Not just "writing a Skill file" — it's "engineering scaffolding that keeps Skills from failing across the entire creation-to-audit lifecycle."
+> Because "it looks fine" is not a quality gate.
 
-### 👤 About the Author
+## 👤 About the Author
 
 🎓 Signatory Author of Tsinghua University Press / 2026 Dangdang Influential Author / AI & Large Model Business HR Specialist at a Leading Tech Company / National Level-1 HR Manager / Level-2 Psychological Counselor / Self-taught Designer
 
@@ -171,10 +183,10 @@ If this quality framework saved you from publishing a broken skill, consider giv
 
 💡 [WeChat Official Account](https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA) / [Xiaohongshu](https://xhslink.com/m/ESxtgUNMdl): muippt
 
-### 📄 License & Acknowledgments
+## 📄 License & Acknowledgments
 
 [MIT](LICENSE) © 2025 木老师 (Mr. Mu)
 
-Built on insights from hundreds of real-world AI agent skill development iterations. Special thanks to the OpenClaw community for battle-testing these quality patterns.
+Built on insights from hundreds of real-world AI agent skill development iterations.
 
 > Note: Much of this project was co-created with AI assistance. If you believe your work has been used without proper attribution, please open an issue.

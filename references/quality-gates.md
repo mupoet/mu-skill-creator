@@ -4,7 +4,7 @@
 
 ---
 
-## 一、AP 反模式完整说明（AP-1~20）
+## 一、AP 反模式完整说明（AP-1~32）
 
 ### AP-1：SKILL.md > 500 行
 **症状**：SKILL.md 包含大量示例代码、完整 schema、详细说明
@@ -83,8 +83,8 @@
 
 ### AP-16：SKILL.md 保留 intro 字段
 **症状**：frontmatter 里写了 `intro:` 字段
-**后果**：intro 内容会随 Skill 加载进入 context，同时 marketplace 管理更难
-**修复**：intro should be managed through the marketplace publish command, not stored in SKILL.md
+**后果**：intro 内容会随 Skill 加载进入 context，同时广场管理更难
+**修复**：intro 只通过 `skill-cli push --intro` 管理，SKILL.md 不保留
 
 ### AP-17：Shell 无 shebang/set -euo
 **症状**：脚本第一行不是 shebang，或缺少 `set -euo pipefail`
@@ -106,17 +106,87 @@
 **后果**：IRON LAW 占了行数但激活不了任何防护，形同虚设
 **修复**：IRON LAW 必须包含该 Skill 频率最高的违规模式和业务专属约束
 
-### AP-21：frontmatter/metadata 含真实身份信息发布
-**症状**：frontmatter 中保留 `metadata.platform.creator: "your-username"` 等字段，或类似 platform.updater / platform.skill_id 字段
-**后果**：公开 Skill 发布后任何人均可看到发布者真实身份，造成个人信息暴露
+### AP-21：frontmatter/metadata 含真实 MIS 发布
+**症状**：frontmatter 中保留 `metadata.platform.creator: "your_mis"` 等字段，或类似 platform.updater / platform.skill_id 字段
+**后果**：公开 Skill 发布后任何人均可看到发布者真实 MIS，造成个人信息暴露
 **检查**：`grep -n 'platform.creator\|platform.updater' SKILL.md`
-**修复**：删除整个 metadata 块；发布者信息由 marketplace system records automatically，无需手动维护
+**修复**：删除整个 metadata 块；发布者信息由广场系统自动记录，无需手动维护
 
 ### AP-22：_meta.json 含真实凭据未排除
-**症状**：Skill 目录下存在 `_meta.json`，其中含真实 API keys or author identity，且没有 .skillignore 排除
-**后果**：打包发布时 _meta.json 随 zip 上传，下载者可获取发布者真实凭据
+**症状**：Skill 目录下存在 `_meta.json`，其中含真实 appkey 或 author MIS，且没有 .skillignore 排除
+**后果**：打包发布时 _meta.json 随 zip 上传，下载者可获取发布者真实 appkey
 **检查**：`test -f _meta.json && cat _meta.json | grep -E 'appkey|author'`
 **修复**：在 .skillignore 中加入 `_meta.json`；frontmatter 补充标准 `appkey: <your-appkey>` 占位符
+
+### AP-23：eval/exec 执行用户输入
+**症状**：脚本中使用 `eval()` 或 `exec()` 处理用户输入或外部数据
+**后果**：代码注入风险，攻击者可执行任意代码
+**检查**：`grep -rn 'eval(\|exec(' scripts/ --include='*.py'`
+**修复**：用 AST 白名单安全评估器替代（`ast.parse` + 递归节点校验），仅允许字面量和运算符节点
+**根因事故**：mu-excel-toolbox validate.py 用 eval() 执行用户传入的校验表达式
+
+### AP-24：异常捕获过宽
+**症状**：`except:` 裸捕获或 `except Exception as e:` 捕获过宽异常
+**后果**：吞掉非预期错误（如 KeyboardInterrupt、SystemExit），问题被隐藏而非暴露
+**检查**：`grep -rn 'except:\|except Exception' scripts/ --include='*.py'`
+**修复**：缩窄 except 到具体异常类型（如 `except UnicodeDecodeError`）；确需宽捕获时至少 re-raise 或 log
+**根因事故**：mu-excel-toolbox peek.py 用 `except (UnicodeDecodeError, Exception)` 吞掉所有异常
+
+### AP-25：调试残留
+**症状**：代码中残留 `if False:`、`import pdb`、`breakpoint()`、`print(调试` 等调试代码
+**后果**：死代码占空间，print 污染输出，pdb 可能在生产环境阻塞
+**检查**：`grep -rn 'if False\|import pdb\|breakpoint()\|print(.*debug' scripts/ --include='*.py'`
+**修复**：删除所有调试残留；需要保留的调试代码用 `if DEBUG:` 环境变量门控
+**根因事故**：mu-excel-toolbox dedup.py 残留 `if False:` 调试分支和未使用变量
+
+### AP-26：废弃 API 调用
+**症状**：调用了已标记 deprecated 的库 API
+**后果**：未来版本升级后代码报错；部分废弃 API 已知有 bug 不会被修复
+**检查**：查看库文档的 deprecation warning，或运行 `python -W all script.py` 检查警告
+**修复**：替换为文档推荐的新 API
+**根因事故**：mu-excel-toolbox clean.py 使用 pandas 已废弃的 `infer_datetime_format=True` 参数
+
+### AP-27：API 契约不一致
+**症状**：函数/方法的调用方传参与定义方签名不匹配（如漏括号、多余 kwargs）
+**后果**：运行时 TypeError 或静默返回错误结果
+**检查**：`grep -rn 'has_errors\|has_warnings' scripts/ --include='*.py'` 检查方法调用是否带括号；对比函数定义与调用
+**修复**：修正调用方签名，确保参数名和数量匹配定义方
+**根因事故**：mu-excel-toolbox chart.py/pivot.py 调用 `has_errors` 漏括号（属性访问 vs 方法调用）；formula.py 传无效 kwargs
+
+### AP-28：import 与 requirements 不匹配
+**症状**：脚本中 `import` 了第三方库，但 requirements.txt 中未声明；或反之
+**后果**：新环境安装后运行报 ImportError；或安装了无用依赖增加体积
+**检查**：提取脚本中的 import 语句，与 requirements.txt 交叉比对
+**修复**：同步 requirements.txt，确保所有第三方依赖均已声明且版本固定
+**根因事故**：mu-excel-toolbox convert.py 使用 tabulate 但 requirements.txt 未声明
+
+### AP-29：可选依赖无 fallback
+**症状**：使用了非核心依赖（如 `df.to_markdown()` 依赖 tabulate），但没有 try/except ImportError 处理
+**后果**：用户未安装可选依赖时整个脚本崩溃，而非降级运行
+**检查**：对非核心 import 检查是否有 `try: import xxx except ImportError` 包裹
+**修复**：用 try/except ImportError 包裹可选依赖 import，提供降级方案（如回退到 to_string）
+**根因事故**：mu-excel-toolbox convert.py/utils.py 的 markdown 格式输出无降级处理
+
+### AP-30：路径操作字符串替换
+**症状**：用 `filename.replace('.xlsx', '_chart.xlsx')` 等字符串替换操作处理文件路径
+**后果**：文件名含多个 `.xlsx` 时误切；跨平台路径分隔符不一致
+**检查**：`grep -rn "\.replace('\..*','" scripts/ --include='*.py'`
+**修复**：使用 `os.path.splitext()` 分离扩展名，再拼接新后缀
+**根因事故**：mu-excel-toolbox chart.py 用 `.replace('.xlsx', '_chart.xlsx')` 生成输出文件名
+
+### AP-31：资源遍历无上限
+**症状**：遍历大文件/大数据集的循环没有行数/条数上限
+**后果**：遇到百万行数据时遍历超时或内存溢出
+**检查**：审查 `for` 循环遍历 DataFrame/文件的代码段，检查是否有 `[:limit]` 或 `break` 条件
+**修复**：加采样上限（如 `col[:101]` 只取前100行计算），或加分页/分块逻辑
+**根因事故**：mu-excel-toolbox style.py 自动列宽遍历全部行（百万行时超时）
+
+### AP-32：.gitignore 缺失
+**症状**：Skill 含 scripts/ 目录但无 .gitignore 文件
+**后果**：`__pycache__/`、`.pyc`、`.DS_Store` 等产物随发布上传，污染下载者环境
+**检查**：`test -d scripts/ && test -f .gitignore || echo 'MISSING'`
+**修复**：创建 .gitignore，至少排除 `__pycache__/`、`*.pyc`、`.DS_Store`、`Thumbs.db`
+**根因事故**：mu-excel-toolbox 发布前无 .gitignore，__pycache__ 随包上传
 
 ---
 

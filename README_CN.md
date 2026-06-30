@@ -4,10 +4,13 @@
 
 # 🦐 mu-skill-creator
 
-> 一个 Skill 搞定 Skill 从创作到质量门控的全流程：**设计决策** · **阶段门控** · **23项审计清单** · **反模式防御**
+> 一个 Skill 搞定 Skill 从创作到质量门控的全流程：**设计决策** · **阶段门控** · **49项10层审计模型** · **反模式防御**
 
 [English](README.md) | **中文** | [🌐 在线主页](https://mupoet.github.io/mu-skill-creator/)
 
+[![微信公众号](https://img.shields.io/badge/muippt-07C160?logo=wechat&logoColor=white)](https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA)
+[![小红书](https://img.shields.io/badge/muippt-FF2442?logo=xiaohongshu&logoColor=white)](https://xhslink.com/m/ESxtgUNMdl)
+[![书籍](https://img.shields.io/badge/书籍-图解团队管理-BBDDE5?logo=bookstack&logoColor=white)](https://item.m.jd.com/product/14547345.html)
 [![License](https://img.shields.io/github/license/mupoet/mu-skill-creator)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/mupoet/mu-skill-creator)](https://github.com/mupoet/mu-skill-creator/stargazers)
 [![Version](https://img.shields.io/github/v/release/mupoet/mu-skill-creator)](https://github.com/mupoet/mu-skill-creator/releases)
@@ -16,7 +19,7 @@
 
 - 🆕 **新建 Skill** — "我要做一个面评写作的 Skill" → 完整8阶段引导，从需求到审计
 - 🔧 **优化现有 Skill** — "这个 Skill 总是循环不停" → 定位AP-12，加终止条件
-- 🛡️ **质量审计** — "帮我检查这个 Skill 有没有问题" → 跑23项清单，逐项红黄绿
+- 🛡️ **质量审计** — "帮我检查这个 Skill 有没有问题" → 跑49项10层清单，逐项红黄绿
 - 📏 **行数瘦身** — "SKILL.md 太长了" → 按三层模型拆分，效果不减才可拆
 - 🔍 **触发词调优** — "Agent 总是不触发我的 Skill" → description优化+accuracy测试
 - 🧪 **运行 Eval 测试** — 有/无 Skill 对比，量化实际效果
@@ -60,29 +63,38 @@ L1 是唯一触发机制，倾向"宁多触发别漏"——漏触发意味着 Sk
 | 6 | 可验证性审查 | 全部yes/no判断 |
 | 7 | 触发词优化 | accuracy≥85% |
 
-### ✅ 23项质量审计清单
+### ✅ 49项10层审计模型
 
-三大类覆盖从格式到内容的完整质量维度：
+10层覆盖从格式到内容的完整质量维度，其中26项可脚本自动化：
 
-**格式规范（9项）**：IRON LAW 专属约束 · description 单行无emoji · 命名规范 · 行数控制 · 阶段编号 · 子Agent规范 · Confirmation Gate · 安全扫描 · 无真实凭据
+| 层级 | 审计目标 | 项数 | 自动 |
+|---|---|---|---|
+| L1 | 文档结构 | 6 | 4 |
+| L2 | 架构一致性 | 5 | 2 |
+| L3 | 代码质量 | 8 | 6 |
+| L4 | 跨文件一致性 | 3 | 0 |
+| L5 | 文档↔代码对齐 | 2 | 2 |
+| L6 | 依赖完整性 | 3 | 2 |
+| L7 | 文件卫生 | 6 | 5 |
+| L8 | 安全合规 | 4 | 3 |
+| L9 | 健壮性与降级 | 7 | 1 |
+| L10 | 内容质量 | 5 | 1 |
 
-**结构健康（10项）**：逻辑冲突 · 模板双源检测 · 僵尸文件 · 断链引用 · 路径同步 · 用户态数据隔离 · 硬编码检测 · 功能退化防护 · 版本号匹配 · 索引完整性
-
-**内容质量（7项）**：跨章节一致性 · 信息冗余消除 · 交互一致性 · 文案质量 · 降级链完整性 · 已知局限披露 · 停滞检测机制
-
-### 🛡️ 20条反模式清单
+### 🛡️ 32条反模式（AP-1~AP-32）
 
 每条标注根因事故和对应设计原则，不是"禁止X"的死记令，而是"为什么X会翻车"的经验提炼：
 
-**结构膨胀类（5条）**：>250行膨胀 | 无数据量限制 | 大文件无截断 | IRON LAW是套话 | IRON LAW照搬通用模板
-
-**流程缺陷类（5条）**：阶段无编号/出口 | 无完成门控 | 无Confirmation Gate | 无Pre-Delivery Checklist | 循环无终止条件
-
-**规则质量类（4条）**：description写宣传语 | 不可验证指令 | 规则只有MUST没WHY | SKILL.md留intro
-
-**一致性类（4条）**：多跳引用A→B→C | 冗余重复提示 | 无AP列表 | 重复造轮子
-
-**工程规范类（2条）**：无子Agent执行规范 | Shell无shebang/set-euo
+| # | 反模式 | 根因 |
+|---|---|---|
+| 1 | >250行膨胀 | Agent忽略后半段指令 |
+| 2 | description写宣传语 | 触发器变广告，无法路由匹配 |
+| 3 | 阶段无编号/出口 | 子Agent跳步无法判进度 |
+| 7 | 无Confirmation Gate | 未等确认自作主张执行 |
+| 9 | IRON LAW是套话 | 通用约束占行数不激活 |
+| 12 | 循环无终止条件 | 串行CLI无上限超时 |
+| 21 | frontmatter含真实MIS | 公开Skill暴露创建者身份 |
+| 23 | eval/exec处理用户输入 | 代码注入风险 |
+| 32 | scripts/缺.gitignore | 平台产物泄漏到仓库 |
 
 ### 🔍 自动化审计脚本
 
@@ -90,7 +102,7 @@ L1 是唯一触发机制，倾向"宁多触发别漏"——漏触发意味着 Sk
 bash scripts/skill-audit.sh <skill-name>
 ```
 
-逐项扫描、绿/黄/红三色输出、23项逐条打勾——目测"没问题"不再是交付标准。
+逐项扫描、绿/黄/红三色输出、49项10层逐条打勾——目测"没问题"不再是交付标准。
 
 ## 📌 与同类工具对比
 
@@ -98,8 +110,8 @@ bash scripts/skill-audit.sh <skill-name>
 
 | 维度 | mu-skill-creator | 无规范手写 |
 |---|---|---|
-| 质量门控 | ✅ 23项自动化清单 | ❌ 全靠目测 |
-| 失效模式防御 | ✅ 3大模式+20条AP | ❌ 踩坑才知道 |
+| 质量门控 | ✅ 49项10层自动化清单 | ❌ 全靠目测 |
+| 失效模式防御 | ✅ 3大模式+32条AP | ❌ 踩坑才知道 |
 | 行数控制 | ✅ 三层模型+拆分指导 | ❌ 越写越长 |
 | 阶段管理 | ✅ 入口/出口条件 | ❌ 想到哪写到哪 |
 | 审计可重复 | ✅ 脚本+清单 | ❌ 因人而异 |
@@ -111,7 +123,7 @@ bash scripts/skill-audit.sh <skill-name>
 | 维度 | mu-skill-creator | 简单模板 |
 |---|---|---|
 | 设计决策解释 | ✅ WHY+根因事故 | ❌ 只有模板 |
-| 反模式防御 | ✅ 20条AP+修复示例 | ❌ 无 |
+| 反模式防御 | ✅ 32条AP+修复示例 | ❌ 无 |
 | 停滞检测 | ✅ 量化信号+换结构 | ❌ 无 |
 | 触发词优化 | ✅ accuracy≥85%测试 | ❌ 凭感觉 |
 | 可扩展性 | ✅ references按需加载 | ❌ 单文件 |
@@ -130,7 +142,7 @@ bash scripts/skill-audit.sh <skill-name>
 
 | 项目 | 说明 |
 |---|---|
-| 运行环境 | OpenClaw 框架（原生支持，兼容所有部署方式） |
+| 运行环境 | Agent 框架（原生支持，兼容所有部署方式） |
 | 审计脚本 | Bash (skill-audit.sh) |
 | 核心产出 | SKILL.md + references/ + scripts/ + evals/ |
 | 设计哲学 | 三层模型 + 阶段门控 + 审计脚本 |
@@ -161,9 +173,9 @@ bash scripts/skill-audit.sh <skill-name>
 
 [![Star History Chart](https://api.star-history.com/svg?repos=mupoet/mu-skill-creator&type=Date)](https://star-history.com/#mupoet/mu-skill-creator&Date)
 
-> 不是"写个 Skill 文件"，是"用工程脚手架让 Skill 从创作到审计全流程不翻车"。
+> 因为"看起来没问题"不是质量门控。
 
-### 👤 作者简介
+## 👤 关于作者
 
 🎓 清华大学出版社签约作家 / 2026当当影响力作家 / 某互联网大厂 AI 大模型业务 HR 砖家 / 一级人力资源管理师 / 二级心理咨询师 / 野生设计师
 
@@ -171,10 +183,10 @@ bash scripts/skill-audit.sh <skill-name>
 
 💡 [微信公众号](https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA) / [小红书](https://xhslink.com/m/ESxtgUNMdl)：muippt
 
-### 📄 许可证与致谢
+## 📄 许可证与致谢
 
 [MIT](LICENSE) © 2025 木老师 (Mr. Mu)
 
-基于数百次真实 AI Agent Skill 开发迭代的经验沉淀。感谢 OpenClaw 社区对这些质量模式的实战验证。
+基于数百次真实 AI Agent Skill 开发迭代的经验沉淀。
 
 > 说明：本项目大部分内容由 AI 辅助完成。如您认为您的作品被使用但未获得适当署名，请提交 issue。

@@ -11,7 +11,7 @@
   },
   {
     "id": "eval-02-audit-existing",
-    "prompt": "我刚改完 my-report-generator 的 SKILL.md，帮我检查一下",
+    "prompt": "我刚改完 mu-interview-shrimp 的 SKILL.md，帮我检查一下",
     "expected_behavior": "触发审计模式，跑质量检查清单 + 行数检查 + AP扫描，不走完整创建流程",
     "grading": {
       "triggers_correctly": true,
@@ -23,7 +23,7 @@
   {
     "id": "eval-03-should-not-trigger",
     "prompt": "帮我写一个 Python 脚本来爬取网页数据",
-    "expected_behavior": "不应触发 mu-skill-creator，这是普通开发任务",
+    "expected_behavior": "不应触发 mu-skill-creator，这是普通开发任务应走 mu-dev-workflow",
     "grading": {
       "does_not_trigger": true
     }
