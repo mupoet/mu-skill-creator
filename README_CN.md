@@ -12,8 +12,8 @@
 [![小红书](https://img.shields.io/badge/muippt-FF2442?logo=xiaohongshu&logoColor=white)](https://xhslink.com/m/ESxtgUNMdl)
 [![书籍](https://img.shields.io/badge/书籍-图解团队管理-BBDDE5?logo=bookstack&logoColor=white)](https://item.m.jd.com/product/14547345.html)
 [![License](https://img.shields.io/github/license/mupoet/mu-skill-creator)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/mupoet/mu-skill-creator)](https://github.com/mupoet/mu-skill-creator/stargazers)
 [![Version](https://img.shields.io/github/v/release/mupoet/mu-skill-creator)](https://github.com/mupoet/mu-skill-creator/releases)
+[![Stars](https://img.shields.io/github/stars/mupoet/mu-skill-creator)](https://github.com/mupoet/mu-skill-creator/stargazers)
 
 ## 💡 使用场景示例
 
