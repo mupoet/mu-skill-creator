@@ -93,9 +93,24 @@
     .layer-badge.l2{background:rgba(90,122,154,0.1);color:var(--blue)}
     .layer-badge.l3{background:rgba(122,106,154,0.1);color:var(--purple)}
 
-    /* AP grid */
-    .dual-table-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:start}
-    .dual-table-grid h3{color:var(--text)}
+    /* Quality System */
+    .quality-dual{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+    .quality-panel h3{font-size:0.92rem;font-weight:700;margin-bottom:20px;color:var(--text)}
+    .ap-cats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .ap-cat{padding:18px 16px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--border-light);transition:all var(--transition);display:flex;align-items:center;gap:12px}
+    .ap-cat:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.04)}
+    .ap-cat-icon{font-size:1.3rem;flex-shrink:0}
+    .ap-cat-body{flex:1}
+    .ap-cat-name{font-size:0.82rem;font-weight:600;color:var(--text);display:block}
+    .ap-cat-count{display:inline-block;margin-top:4px;padding:2px 8px;border-radius:4px;font-size:0.68rem;font-weight:700;background:var(--accent-bg);color:var(--accent)}
+    .audit-layers{display:flex;flex-direction:column;gap:8px}
+    .audit-row{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--border-light);transition:all var(--transition)}
+    .audit-row:hover{border-color:var(--accent);background:var(--bg-warm)}
+    .audit-row .layer-badge{flex-shrink:0}
+    .audit-row-name{flex:1;font-size:0.82rem;font-weight:600;color:var(--text)}
+    .audit-row-meta{display:flex;gap:8px;align-items:center;font-size:0.72rem;color:var(--text-muted)}
+    .audit-row-meta span{padding:2px 7px;border-radius:4px;background:var(--bg-warm)}
+    .audit-row-meta .auto-badge{background:rgba(90,138,106,0.1);color:var(--green)}
 
     /* Workflow */
     .workflow-timeline{position:relative;max-width:640px;margin:0 auto}
@@ -151,7 +166,8 @@
     @media(max-width:768px){
       .stats{grid-template-columns:repeat(2,1fr)}
       .decisions-grid{grid-template-columns:1fr}
-      .dual-table-grid{grid-template-columns:1fr}
+      .quality-dual{grid-template-columns:1fr}
+      .ap-cats{grid-template-columns:repeat(2,1fr)}
       .checklist-cols{grid-template-columns:1fr}
       .nav-links{display:none}
       .hero{padding:120px 0 80px}
@@ -213,36 +229,32 @@
 <h2 class="section-title"><span data-en="32 anti-patterns + 49-item 10-layer audit" data-zh="32条反模式 + 49项10层审计">32条反模式 + 49项10层审计</span></h2>
 <p class="section-desc"><span data-en="Each anti-pattern traces to a real incident. 26 audit items are auto-checkable via script. 'Looks fine' is no longer a delivery standard." data-zh="每条反模式都可追溯到真实事故。26项审计可脚本自动化。"目测没问题"不再是交付标准。">每条反模式都可追溯到真实事故。26项审计可脚本自动化。"目测没问题"不再是交付标准。</span></p>
 </div>
-<div class="dual-table-grid">
-<div>
-<h3 style="font-size:0.88rem;font-weight:700;margin-bottom:16px"><span data-en="🛡️ 32 Anti-Patterns (6 categories)" data-zh="🛡️ 32条反模式（6大类）">🛡️ 32条反模式（6大类）</span></h3>
-<div style="overflow-x:auto"><table class="layer-table"><thead><tr>
-<th><span data-en="Category" data-zh="分类">分类</span></th><th><span data-en="Items" data-zh="条数">条数</span></th>
-</tr></thead><tbody>
-<tr><td><span data-en="🫠 Structure Bloat" data-zh="🫠 结构膨胀类">🫠 结构膨胀类</span></td><td>5</td></tr>
-<tr><td><span data-en="🕳️ Process Defects" data-zh="🕳️ 流程缺陷类">🕳️ 流程缺陷类</span></td><td>5</td></tr>
-<tr><td><span data-en="📝 Rule Quality" data-zh="📝 规则质量类">📝 规则质量类</span></td><td>4</td></tr>
-<tr><td><span data-en="🔗 Consistency" data-zh="🔗 一致性类">🔗 一致性类</span></td><td>4</td></tr>
-<tr><td><span data-en="⚙️ Engineering Standards" data-zh="⚙️ 工程规范类">⚙️ 工程规范类</span></td><td>4</td></tr>
-<tr><td><span data-en="💻 Code Quality" data-zh="💻 代码质量类">💻 代码质量类</span></td><td>10</td></tr>
-</tbody></table></div>
+<div class="quality-dual">
+<div class="quality-panel">
+<h3><span data-en="🛡️ 32 Anti-Patterns · 6 Categories" data-zh="🛡️ 32条反模式 · 6大分类">🛡️ 32条反模式 · 6大分类</span></h3>
+<div class="ap-cats">
+<div class="ap-cat"><div class="ap-cat-icon">🫠</div><div class="ap-cat-body"><span class="ap-cat-name"><span data-en="Structure Bloat" data-zh="结构膨胀类">结构膨胀类</span></span><span class="ap-cat-count"><span data-en="5 items" data-zh="5条">5条</span></span></div></div>
+<div class="ap-cat"><div class="ap-cat-icon">🕳️</div><div class="ap-cat-body"><span class="ap-cat-name"><span data-en="Process Defects" data-zh="流程缺陷类">流程缺陷类</span></span><span class="ap-cat-count"><span data-en="5 items" data-zh="5条">5条</span></span></div></div>
+<div class="ap-cat"><div class="ap-cat-icon">📝</div><div class="ap-cat-body"><span class="ap-cat-name"><span data-en="Rule Quality" data-zh="规则质量类">规则质量类</span></span><span class="ap-cat-count"><span data-en="4 items" data-zh="4条">4条</span></span></div></div>
+<div class="ap-cat"><div class="ap-cat-icon">🔗</div><div class="ap-cat-body"><span class="ap-cat-name"><span data-en="Consistency" data-zh="一致性类">一致性类</span></span><span class="ap-cat-count"><span data-en="4 items" data-zh="4条">4条</span></span></div></div>
+<div class="ap-cat"><div class="ap-cat-icon">⚙️</div><div class="ap-cat-body"><span class="ap-cat-name"><span data-en="Engineering Standards" data-zh="工程规范类">工程规范类</span></span><span class="ap-cat-count"><span data-en="4 items" data-zh="4条">4条</span></span></div></div>
+<div class="ap-cat"><div class="ap-cat-icon">💻</div><div class="ap-cat-body"><span class="ap-cat-name"><span data-en="Code Quality" data-zh="代码质量类">代码质量类</span></span><span class="ap-cat-count"><span data-en="10 items" data-zh="10条">10条</span></span></div></div>
 </div>
-<div>
-<h3 style="font-size:0.88rem;font-weight:700;margin-bottom:16px"><span data-en="✅ 49-Item Audit (10 layers)" data-zh="✅ 49项审计（10个层级）">✅ 49项审计（10个层级）</span></h3>
-<div style="overflow-x:auto"><table class="layer-table"><thead><tr>
-<th><span data-en="Layer" data-zh="层级">层级</span></th><th><span data-en="Audit Target" data-zh="审计目标">审计目标</span></th><th><span data-en="Items" data-zh="项数">项数</span></th><th><span data-en="Auto" data-zh="自动">自动</span></th>
-</tr></thead><tbody>
-<tr><td><span class="layer-badge l1">L1</span></td><td><span data-en="Document Structure" data-zh="文档结构">文档结构</span></td><td>6</td><td>4</td></tr>
-<tr><td><span class="layer-badge l2">L2</span></td><td><span data-en="Architecture Consistency" data-zh="架构一致性">架构一致性</span></td><td>5</td><td>2</td></tr>
-<tr><td><span class="layer-badge l3">L3</span></td><td><span data-en="Code Quality" data-zh="代码质量">代码质量</span></td><td>8</td><td>6</td></tr>
-<tr><td><span class="layer-badge l1">L4</span></td><td><span data-en="Cross-file Consistency" data-zh="跨文件一致性">跨文件一致性</span></td><td>3</td><td>0</td></tr>
-<tr><td><span class="layer-badge l2">L5</span></td><td><span data-en="Doc ↔ Code Alignment" data-zh="文档↔代码对齐">文档↔代码对齐</span></td><td>2</td><td>2</td></tr>
-<tr><td><span class="layer-badge l3">L6</span></td><td><span data-en="Dependency Integrity" data-zh="依赖完整性">依赖完整性</span></td><td>3</td><td>2</td></tr>
-<tr><td><span class="layer-badge l1">L7</span></td><td><span data-en="File Hygiene" data-zh="文件卫生">文件卫生</span></td><td>6</td><td>5</td></tr>
-<tr><td><span class="layer-badge l2">L8</span></td><td><span data-en="Security Compliance" data-zh="安全合规">安全合规</span></td><td>4</td><td>3</td></tr>
-<tr><td><span class="layer-badge l3">L9</span></td><td><span data-en="Robustness &amp; Degradation" data-zh="健壮性与降级">健壮性与降级</span></td><td>7</td><td>1</td></tr>
-<tr><td><span class="layer-badge l1">L10</span></td><td><span data-en="Content Quality" data-zh="内容质量">内容质量</span></td><td>5</td><td>1</td></tr>
-</tbody></table></div>
+</div>
+<div class="quality-panel">
+<h3><span data-en="✅ 49-Item Audit · 10 Layers" data-zh="✅ 49项审计 · 10个层级">✅ 49项审计 · 10个层级</span></h3>
+<div class="audit-layers">
+<div class="audit-row"><span class="layer-badge l1">L1</span><span class="audit-row-name"><span data-en="Document Structure" data-zh="文档结构">文档结构</span></span><div class="audit-row-meta"><span><span data-en="6 items" data-zh="6项">6项</span></span><span class="auto-badge"><span data-en="4 auto" data-zh="4自动">4自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l2">L2</span><span class="audit-row-name"><span data-en="Architecture Consistency" data-zh="架构一致性">架构一致性</span></span><div class="audit-row-meta"><span><span data-en="5 items" data-zh="5项">5项</span></span><span class="auto-badge"><span data-en="2 auto" data-zh="2自动">2自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l3">L3</span><span class="audit-row-name"><span data-en="Code Quality" data-zh="代码质量">代码质量</span></span><div class="audit-row-meta"><span><span data-en="8 items" data-zh="8项">8项</span></span><span class="auto-badge"><span data-en="6 auto" data-zh="6自动">6自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l1">L4</span><span class="audit-row-name"><span data-en="Cross-file Consistency" data-zh="跨文件一致性">跨文件一致性</span></span><div class="audit-row-meta"><span><span data-en="3 items" data-zh="3项">3项</span></span><span class="auto-badge"><span data-en="0 auto" data-zh="0自动">0自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l2">L5</span><span class="audit-row-name"><span data-en="Doc ↔ Code Alignment" data-zh="文档↔代码对齐">文档↔代码对齐</span></span><div class="audit-row-meta"><span><span data-en="2 items" data-zh="2项">2项</span></span><span class="auto-badge"><span data-en="2 auto" data-zh="2自动">2自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l3">L6</span><span class="audit-row-name"><span data-en="Dependency Integrity" data-zh="依赖完整性">依赖完整性</span></span><div class="audit-row-meta"><span><span data-en="3 items" data-zh="3项">3项</span></span><span class="auto-badge"><span data-en="2 auto" data-zh="2自动">2自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l1">L7</span><span class="audit-row-name"><span data-en="File Hygiene" data-zh="文件卫生">文件卫生</span></span><div class="audit-row-meta"><span><span data-en="6 items" data-zh="6项">6项</span></span><span class="auto-badge"><span data-en="5 auto" data-zh="5自动">5自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l2">L8</span><span class="audit-row-name"><span data-en="Security Compliance" data-zh="安全合规">安全合规</span></span><div class="audit-row-meta"><span><span data-en="4 items" data-zh="4项">4项</span></span><span class="auto-badge"><span data-en="3 auto" data-zh="3自动">3自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l3">L9</span><span class="audit-row-name"><span data-en="Robustness &amp; Degradation" data-zh="健壮性与降级">健壮性与降级</span></span><div class="audit-row-meta"><span><span data-en="7 items" data-zh="7项">7项</span></span><span class="auto-badge"><span data-en="1 auto" data-zh="1自动">1自动</span></span></div></div>
+<div class="audit-row"><span class="layer-badge l1">L10</span><span class="audit-row-name"><span data-en="Content Quality" data-zh="内容质量">内容质量</span></span><div class="audit-row-meta"><span><span data-en="5 items" data-zh="5项">5项</span></span><span class="auto-badge"><span data-en="1 auto" data-zh="1自动">1自动</span></span></div></div>
+</div>
 </div>
 </div>
 <p style="text-align:center;margin-top:24px;font-size:0.82rem;color:var(--text-muted)"><span data-en="Full anti-pattern list with fixes in" data-zh="完整反模式清单及修复示例见">完整反模式清单及修复示例见</span> <a href="https://github.com/mupoet/mu-skill-creator/blob/main/references/quality-gates.md">quality-gates.md</a></p>
