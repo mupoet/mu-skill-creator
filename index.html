@@ -97,7 +97,7 @@
     .ap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
     .ap-item{display:flex;gap:12px;padding:16px 18px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--border-light);transition:all var(--transition)}
     .ap-item:hover{border-color:var(--accent);background:var(--bg-warm)}
-    .ap-num{flex-shrink:0;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;background:var(--bg-warm);color:var(--text-muted)}
+    .ap-num{flex-shrink:0;min-width:38px;height:28px;padding:0 6px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;background:var(--bg-warm);color:var(--text-muted);white-space:nowrap}
     .ap-content{flex:1}
     .ap-content strong{font-size:0.85rem;display:block;margin-bottom:2px}
     .ap-content span{font-size:0.78rem;color:var(--text-muted)}
@@ -122,14 +122,6 @@
     .checklist-group li:last-child{border-bottom:none}
     .checklist-group li::before{content:"☐";font-size:0.75rem;color:var(--text-muted);flex-shrink:0}
 
-    /* Quickstart */
-    .quickstart{background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius);padding:40px;max-width:640px;margin:0 auto}
-    .qs-step{display:flex;gap:16px;margin-bottom:28px}
-    .qs-step:last-child{margin-bottom:0}
-    .qs-num{flex-shrink:0;width:28px;height:28px;border-radius:7px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700}
-    .qs-body h4{font-size:0.92rem;font-weight:700;margin-bottom:6px}
-    .qs-body p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6}
-    .code-block{background:var(--bg-code);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:12px 16px;margin-top:8px;font-family:var(--font-mono);font-size:0.82rem;color:var(--accent);overflow-x:auto}
 
     /* Comparison */
     .comparison-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border-light)}
@@ -180,7 +172,6 @@
 <li><a href="#anti-patterns"><span data-en="Anti-Patterns" data-zh="反模式">反模式</span></a></li>
 <li><a href="#workflow"><span data-en="Workflow" data-zh="工作流">工作流</span></a></li>
 <li><a href="#checklist"><span data-en="Checklist" data-zh="审计清单">审计清单</span></a></li>
-<li><a href="#quickstart"><span data-en="Quick Start" data-zh="快速开始">快速开始</span></a></li>
 </ul>
 <div class="nav-right">
 <div class="lang-switch" id="langSwitch"><span data-lang="zh" class="active">中文</span><span data-lang="en">EN</span></div>
@@ -191,8 +182,8 @@
 <h1><span data-en="Don't just <em>write</em> a Skill file.<br>Engineer it <em>not to fail</em>." data-zh="不是<em>写个</em> Skill 文件，<br>是用工程脚手架让它<em>不翻车</em>。">不是<em>写个</em> Skill 文件，<br>是用工程脚手架让它<em>不翻车</em>。</span></h1>
 <p class="hero-sub"><span data-en="🔧 One Skill for the entire lifecycle from creation to quality gate — 3 design decisions · 32 anti-patterns · 49-item 10-layer audit · automated scripts." data-zh="🔧 一个 Skill 搞定从创作到质量门控的全流程——3大设计决策 · 32条反模式 · 49项10层审计模型 · 自动化脚本。">🔧 一个 Skill 搞定从创作到质量门控的全流程——3大设计决策 · 32条反模式 · 49项10层审计模型 · 自动化脚本。</span></p>
 <div class="hero-actions">
-<a href="#quickstart" class="btn btn-primary"><span data-en="Get Started" data-zh="快速开始">快速开始</span></a>
-<a href="https://github.com/mupoet/mu-skill-creator" class="btn btn-secondary" target="_blank"><span data-en="View Source" data-zh="查看源码">查看源码</span></a>
+<a href="https://github.com/mupoet/mu-skill-creator" class="btn btn-primary" target="_blank"><span data-en="⭐ View on GitHub" data-zh="⭐ 在 GitHub 上查看">⭐ 在 GitHub 上查看</span></a>
+<a href="https://github.com/mupoet/mu-skill-creator/archive/refs/heads/main.zip" class="btn btn-secondary"><span data-en="📦 Download ZIP" data-zh="📦 下载 ZIP">📦 下载 ZIP</span></a>
 </div>
 <div class="stats">
 <div class="stat"><div class="stat-num">🧠 3</div><div class="stat-label"><span data-en="Design Decisions" data-zh="设计决策">设计决策</span></div></div>
@@ -294,24 +285,6 @@
 <tr><td><span data-en="Known limitations" data-zh="已知局限">已知局限</span></td><td><span data-en="✅ Mandatory disclosure" data-zh="✅ 强制声明">✅ 强制声明</span></td><td><span data-en="❌ Silent suffering" data-zh="❌ 默默承受">❌ 默默承受</span></td></tr>
 </tbody></table></div>
 </div></section>
-<section id="quickstart" style="background:var(--bg-warm)"><div class="container">
-<div class="section-header center"><div class="section-label"><span data-en="🚀 Quick Start" data-zh="🚀 快速开始">🚀 快速开始</span></div>
-<h2 class="section-title"><span data-en="Up and running in 3 steps" data-zh="三步开始使用">三步开始使用</span></h2>
-</div>
-<div class="quickstart">
-<div class="qs-step"><div class="qs-num">1</div><div class="qs-body"><h4><span data-en="📦 Install" data-zh="📦 安装">📦 安装</span></h4>
-<p><span data-en="Unzip to your skills directory." data-zh="解压到你的 Skills 目录。">解压到你的 Skills 目录。</span></p>
-<div class="code-block">unzip mu-skill-creator.zip -d ~/.skills/</div>
-</div></div>
-<div class="qs-step"><div class="qs-num">2</div><div class="qs-body"><h4><span data-en="✨ Create a new Skill" data-zh="✨ 创建新 Skill">✨ 创建新 Skill</span></h4>
-<p><span data-en="Just tell the Agent &quot;help me create a new Skill&quot; to trigger the full 8-stage workflow." data-zh="对 Agent 说“帮我创建一个新 Skill”，即可触发完整8阶段创作流程。">对 Agent 说“帮我创建一个新 Skill”，即可触发完整8阶段创作流程。</span></p>
-</div></div>
-<div class="qs-step"><div class="qs-num">3</div><div class="qs-body"><h4><span data-en="🔍 Audit existing Skills" data-zh="🔍 审计现有 Skill">🔍 审计现有 Skill</span></h4>
-<p><span data-en="Run the audit script to check any Skill against the 49-item 10-layer checklist." data-zh="运行审计脚本，对任意 Skill 执行49项10层质量检查。">运行审计脚本，对任意 Skill 执行49项10层质量检查。</span></p>
-<div class="code-block">bash scripts/skill-audit.sh &lt;skill-name&gt;</div>
-</div></div>
-</div>
-</div></section>
 <section class="cta-section"><div class="container">
 <h2><span data-en="⚡ Stop eyeballing.<br><em>Start engineering.</em>" data-zh="⚡ 别再目测了。<br><em>用工程方法。</em>">⚡ 别再目测了。<br><em>用工程方法。</em></span></h2>
 <p><span data-en="Every rule traces back to a real incident. Every gate prevents a real failure." data-zh="每条规则都源于真实事故。每道门控都在阻止真实的失败。">每条规则都源于真实事故。每道门控都在阻止真实的失败。</span></p>
@@ -326,8 +299,7 @@
 <a href="https://github.com/mupoet/mu-skill-creator/blob/main/references/quality-gates.md"><span data-en="Quality Gates" data-zh="质量门控">质量门控</span></a>
 <a href="https://github.com/mupoet/mu-skill-creator/issues"><span data-en="Issues" data-zh="问题反馈">问题反馈</span></a>
 </div>
-<div class="footer-copy"><span data-en="🛡️ MIT License · Built for the Skill engineering community" data-zh="🛡️ MIT License · 为 Skill 工程社区而建">🛡️ MIT License · 为 Skill 工程社区而建</span></div>
-<div class="footer-copy" style="margin-top:8px">©️ <a href="https://github.com/mupoet" target="_blank">木先生iPPT</a> · 📚 <span data-en="Extended reading " data-zh="扩展阅读 ">扩展阅读 </span><a href="https://item.m.jd.com/product/14547345.html" target="_blank"><span data-en="Guide to Team Management" data-zh="《图解团队管理》">《图解团队管理》</span></a> · 💡 <a href="https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA" target="_blank"><span data-en="WeChat" data-zh="微信公众号">微信公众号</span></a> / <a href="https://xhslink.com/m/ESxtgUNMdl" target="_blank"><span data-en="Xiaohongshu" data-zh="小红书">小红书</span></a>：muippt</div>
+<div class="footer-copy">©️ <a href="https://github.com/mupoet" target="_blank">木先生iPPT</a> · 📚 <span data-en="Extended reading " data-zh="扩展阅读 ">扩展阅读 </span><a href="https://item.m.jd.com/product/14547345.html" target="_blank"><span data-en="Guide to Team Management" data-zh="《图解团队管理》">《图解团队管理》</span></a> · 💡 <a href="https://mp.weixin.qq.com/s/v1JSZvlN5fvbOOHvkvXEtA" target="_blank"><span data-en="WeChat" data-zh="微信公众号">微信公众号</span></a> / <a href="https://xhslink.com/m/ESxtgUNMdl" target="_blank"><span data-en="Xiaohongshu" data-zh="小红书">小红书</span></a>：muippt</div>
 </div></footer>
 <script>
 (function(){
