@@ -139,8 +139,8 @@ for entry in "${SKILLS[@]}"; do
     desc="❌格式"; skill_ok=false
   fi
 
-  # Security: restricted system URLs
-  sec_hits=$(grep -cE "hr\.sankuai\.com|ehr\.sankuai|mthr\.sankuai|hc\.sankuai|ov\.sankuai|goal\.sankuai|okr\.sankuai|huoshui\.sankuai|bole\.sankuai|talent\.sankuai|hrmdm\.sankuai|meituan\.avature" "$f" 2>/dev/null || true)
+  # Security: restricted system URLs (customize for your organization)
+  sec_hits=$(grep -cE "internal\.(corp|local|intranet)|10\.[0-9]+\.[0-9]+\.[0-9]+|192\.168\.[0-9]+\.[0-9]+|172\.(1[6-9]|2[0-9]|3[01])\.[0-9]+\.[0-9]+" "$f" 2>/dev/null || true)
   if [ "$sec_hits" -gt 0 ]; then sec="⚠️${sec_hits}处"; else sec="✅"; fi
 
   # ── Code Quality checks (scripts/ only) — L3/L7 automated subset ──

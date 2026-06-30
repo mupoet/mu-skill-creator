@@ -40,7 +40,7 @@ visibility: public
 cd <skill-dir>
 
 echo "=== ① 人员信息 ==="
-grep -rn "@meituan\.com\|empId:[0-9]\|userId:[0-9]\|MIS:[a-z]" \
+grep -rn "@your-corp\.com\|empId:[0-9]\|userId:[0-9]\|MIS:[a-z]" \
   SKILL.md scripts/ references/ assets/ 2>/dev/null
 
 echo "=== ② 组织/规模 ==="
@@ -52,15 +52,15 @@ grep -rn "client_secret\s*=\s*['\"][^'\"<]\|Bearer [A-Za-z0-9]\{20,\}\|token\s*=
   SKILL.md scripts/ references/ assets/ 2>/dev/null
 
 echo "=== ④ 内网地址 ==="
-grep -rn "km\.sankuai\.com/page/[0-9]\|10\.[0-9]\+\.[0-9]\+\.[0-9]\+\|192\.168\." \
+grep -rn "10\.[0-9]\+\.[0-9]\+\.[0-9]\+\|192\.168\.[0-9]\+\|172\.(1[6-9]\|2[0-9]\|3[01])\.[0-9]\+\.[0-9]\+\|internal\.(corp\|local\|intranet)" \
   SKILL.md scripts/ references/ assets/ 2>/dev/null
 
 echo "=== ④b 受限系统（禁止Skill调用） ==="
-grep -rn "hr\.sankuai\.com\|ehr\.sankuai\.com\|mthr\.sankuai\.com\|hc\.sankuai\.com\|ov\.sankuai\.com\|goal\.sankuai\.com\|okr\.sankuai\.com\|huoshui\.sankuai\.com\|bole\.sankuai\.com\|talent\.sankuai\.com\|hrmdm\.sankuai\.com\|meituan\.avature\.net" \
-  SKILL.md scripts/ references/ assets/ 2>/dev/null
+echo "# 添加你的组织内部系统域名模式，例如:"
+echo "# grep -rn 'internal.your-corp.com|hr.your-corp.com|admin.your-corp.local' SKILL.md scripts/ references/ assets/ 2>/dev/null"
 
 echo "=== ⑤ cron/脚本硬编码用户名 ==="
-grep -rn "\-\-user [a-z]\{3,\}\|\-\-mis [a-z]\{3,\}\|\-\-ciba [a-z]\{3,\}" \
+grep -rn "\-\-user [a-z]\{3,\}\|\-\-mis [a-z]\{3,\}\|\-\-appkey [a-z]\{3,\}" \
   SKILL.md scripts/ references/ assets/ 2>/dev/null
 
 echo "=== ⑥ .git 目录 ==="
@@ -112,7 +112,7 @@ message(action=send, channel=messaging-platform, message="<三段式说明文本
 
 **首次发布（新 Skill）：**
 ```bash
-skill-cli publish <dir-name> --visibility public --ciba <your-appkey>
+skill-cli publish <dir-name> --visibility public --appkey <your-appkey>
 ```
 
 **更新已有 Skill：**
@@ -132,7 +132,7 @@ skill-cli push <dir-name> \
 
 ```bash
 # 1. 查真实 id（禁止猜测）
-skill-cli search <name> --ciba <your-appkey> 2>&1 | grep "^id:"
+skill-cli search <name> --appkey <your-appkey> 2>&1 | grep "^id:"
 
 # 2. 拼链接（唯一正确格式）
 # https://skill-marketplace.example.com/skills/skill-detail?id=<真实id>&activeTab=overview
