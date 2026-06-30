@@ -94,13 +94,8 @@
     .layer-badge.l3{background:rgba(122,106,154,0.1);color:var(--purple)}
 
     /* AP grid */
-    .ap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .ap-item{display:flex;gap:12px;padding:16px 18px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--border-light);transition:all var(--transition)}
-    .ap-item:hover{border-color:var(--accent);background:var(--bg-warm)}
-    .ap-num{flex-shrink:0;min-width:38px;height:28px;padding:0 6px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;background:var(--bg-warm);color:var(--text-muted);white-space:nowrap}
-    .ap-content{flex:1}
-    .ap-content strong{font-size:0.85rem;display:block;margin-bottom:2px}
-    .ap-content span{font-size:0.78rem;color:var(--text-muted)}
+    .dual-table-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:start}
+    .dual-table-grid h3{color:var(--text)}
 
     /* Workflow */
     .workflow-timeline{position:relative;max-width:640px;margin:0 auto}
@@ -156,7 +151,7 @@
     @media(max-width:768px){
       .stats{grid-template-columns:repeat(2,1fr)}
       .decisions-grid{grid-template-columns:1fr}
-      .ap-grid{grid-template-columns:1fr}
+      .dual-table-grid{grid-template-columns:1fr}
       .checklist-cols{grid-template-columns:1fr}
       .nav-links{display:none}
       .hero{padding:120px 0 80px}
@@ -169,9 +164,8 @@
 <div class="nav-logo">mu-skill-creator</div>
 <ul class="nav-links">
 <li><a href="#decisions"><span data-en="Decisions" data-zh="设计决策">设计决策</span></a></li>
-<li><a href="#anti-patterns"><span data-en="Anti-Patterns" data-zh="反模式">反模式</span></a></li>
+<li><a href="#quality-system"><span data-en="Quality" data-zh="质量体系">质量体系</span></a></li>
 <li><a href="#workflow"><span data-en="Workflow" data-zh="工作流">工作流</span></a></li>
-<li><a href="#checklist"><span data-en="Checklist" data-zh="审计清单">审计清单</span></a></li>
 </ul>
 <div class="nav-right">
 <div class="lang-switch" id="langSwitch"><span data-lang="zh" class="active">中文</span><span data-lang="en">EN</span></div>
@@ -214,24 +208,44 @@
 <tr><td><span class="layer-badge l3">L3</span></td><td><span data-en="Detailed docs, schema, examples" data-zh="详细文档、schema、示例">详细文档、schema、示例</span></td><td><span data-en="Unlimited" data-zh="不限">不限</span></td><td><span data-en="On demand" data-zh="按需 read">按需 read</span></td></tr>
 </tbody></table></div>
 </div></section>
-<section id="anti-patterns" style="background:var(--bg-warm)"><div class="container">
-<div class="section-header center"><div class="section-label"><span data-en="🛡️ Anti-Patterns" data-zh="🛡️ 反模式清单">🛡️ 反模式清单</span></div>
-<h2 class="section-title"><span data-en="32 ways to fail — and how not to" data-zh="32种翻车姿势——以及如何避免">32种翻车姿势——以及如何避免</span></h2>
-<p class="section-desc"><span data-en="Each anti-pattern is traced to a real incident. Not dogma, but distilled experience from real failures." data-zh="每条反模式都可追溯到真实事故。不是“禁止X”的死记令，而是“为什么X会翻车”的经验提炼。">每条反模式都可追溯到真实事故。不是“禁止X”的死记令，而是“为什么X会翻车”的经验提炼。</span></p>
+<section id="quality-system" style="background:var(--bg-warm)"><div class="container">
+<div class="section-header center"><div class="section-label"><span data-en="🛡️ Quality System" data-zh="🛡️ 质量体系">🛡️ 质量体系</span></div>
+<h2 class="section-title"><span data-en="32 anti-patterns + 49-item 10-layer audit" data-zh="32条反模式 + 49项10层审计">32条反模式 + 49项10层审计</span></h2>
+<p class="section-desc"><span data-en="Each anti-pattern traces to a real incident. 26 audit items are auto-checkable via script. 'Looks fine' is no longer a delivery standard." data-zh="每条反模式都可追溯到真实事故。26项审计可脚本自动化。"目测没问题"不再是交付标准。">每条反模式都可追溯到真实事故。26项审计可脚本自动化。"目测没问题"不再是交付标准。</span></p>
 </div>
-<div class="ap-grid">
-<div class="ap-item"><div class="ap-num">AP-1</div><div class="ap-content"><strong><span data-en=">250 line bloat" data-zh="超250行膨胀">超250行膨胀</span></strong><span><span data-en="Agent ignores latter half" data-zh="Agent忽略后半段指令">Agent忽略后半段指令</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-2</div><div class="ap-content"><strong><span data-en="Promo in description" data-zh="description写宣传语">description写宣传语</span></strong><span><span data-en="Trigger becomes ad" data-zh="触发器变广告无法路由">触发器变广告无法路由</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-3</div><div class="ap-content"><strong><span data-en="No stage numbering" data-zh="阶段无编号出口">阶段无编号出口</span></strong><span><span data-en="Sub-agent skips steps" data-zh="子Agent跳步判不了进度">子Agent跳步判不了进度</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-4</div><div class="ap-content"><strong><span data-en="Multi-hop references" data-zh="多跳引用A→B→C">多跳引用A→B→C</span></strong><span><span data-en="3-layer nesting forgotten" data-zh="3层嵌套Agent遗忘">3层嵌套Agent遗忘</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-7</div><div class="ap-content"><strong><span data-en="No confirmation gate" data-zh="无确认门控">无确认门控</span></strong><span><span data-en="Unauthorized publish" data-zh="未等确认自作主张发布">未等确认自作主张发布</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-9</div><div class="ap-content"><strong><span data-en="IRON LAW is boilerplate" data-zh="IRON LAW是套话">IRON LAW是套话</span></strong><span><span data-en="Generic rules ignored" data-zh="通用约束占行数不激活">通用约束占行数不激活</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-12</div><div class="ap-content"><strong><span data-en="No loop termination" data-zh="循环无终止条件">循环无终止条件</span></strong><span><span data-en="Infinite CLI timeout" data-zh="串行CLI无上限超时">串行CLI无上限超时</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-13</div><div class="ap-content"><strong><span data-en="No data limits" data-zh="无数据量限制">无数据量限制</span></strong><span><span data-en="91 serial queries timeout" data-zh="91条串行查询超时">91条串行查询超时</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-21</div><div class="ap-content"><strong><span data-en="Real MIS in frontmatter" data-zh="frontmatter含真实MIS">frontmatter含真实MIS</span></strong><span><span data-en="Public skill exposes identity" data-zh="公开Skill暴露创建者身份">公开Skill暴露创建者身份</span></span></div></div>
-<div class="ap-item"><div class="ap-num">AP-32</div><div class="ap-content"><strong><span data-en="Missing .gitignore" data-zh="scripts/缺.gitignore">scripts/缺.gitignore</span></strong><span><span data-en="Platform artifacts leak" data-zh="平台产物泄漏到仓库">平台产物泄漏到仓库</span></span></div></div>
+<div class="dual-table-grid">
+<div>
+<h3 style="font-size:0.88rem;font-weight:700;margin-bottom:16px"><span data-en="🛡️ 32 Anti-Patterns (6 categories)" data-zh="🛡️ 32条反模式（6大类）">🛡️ 32条反模式（6大类）</span></h3>
+<div style="overflow-x:auto"><table class="layer-table"><thead><tr>
+<th><span data-en="Category" data-zh="分类">分类</span></th><th><span data-en="Items" data-zh="条数">条数</span></th>
+</tr></thead><tbody>
+<tr><td><span data-en="🫠 Structure Bloat" data-zh="🫠 结构膨胀类">🫠 结构膨胀类</span></td><td>5</td></tr>
+<tr><td><span data-en="🕳️ Process Defects" data-zh="🕳️ 流程缺陷类">🕳️ 流程缺陷类</span></td><td>5</td></tr>
+<tr><td><span data-en="📝 Rule Quality" data-zh="📝 规则质量类">📝 规则质量类</span></td><td>4</td></tr>
+<tr><td><span data-en="🔗 Consistency" data-zh="🔗 一致性类">🔗 一致性类</span></td><td>4</td></tr>
+<tr><td><span data-en="⚙️ Engineering Standards" data-zh="⚙️ 工程规范类">⚙️ 工程规范类</span></td><td>4</td></tr>
+<tr><td><span data-en="💻 Code Quality" data-zh="💻 代码质量类">💻 代码质量类</span></td><td>10</td></tr>
+</tbody></table></div>
 </div>
-<p style="text-align:center;margin-top:24px;font-size:0.82rem;color:var(--text-muted)"><span data-en="Showing 10 of 32 anti-patterns. Full list with fixes in" data-zh="展示 32 条中的 10 条，完整修复示例见">展示 32 条中的 10 条，完整修复示例见</span> <a href="https://github.com/mupoet/mu-skill-creator/blob/main/references/quality-gates.md">quality-gates.md</a></p>
+<div>
+<h3 style="font-size:0.88rem;font-weight:700;margin-bottom:16px"><span data-en="✅ 49-Item Audit (10 layers)" data-zh="✅ 49项审计（10个层级）">✅ 49项审计（10个层级）</span></h3>
+<div style="overflow-x:auto"><table class="layer-table"><thead><tr>
+<th><span data-en="Layer" data-zh="层级">层级</span></th><th><span data-en="Audit Target" data-zh="审计目标">审计目标</span></th><th><span data-en="Items" data-zh="项数">项数</span></th><th><span data-en="Auto" data-zh="自动">自动</span></th>
+</tr></thead><tbody>
+<tr><td><span class="layer-badge l1">L1</span></td><td><span data-en="Document Structure" data-zh="文档结构">文档结构</span></td><td>6</td><td>4</td></tr>
+<tr><td><span class="layer-badge l2">L2</span></td><td><span data-en="Architecture Consistency" data-zh="架构一致性">架构一致性</span></td><td>5</td><td>2</td></tr>
+<tr><td><span class="layer-badge l3">L3</span></td><td><span data-en="Code Quality" data-zh="代码质量">代码质量</span></td><td>8</td><td>6</td></tr>
+<tr><td><span class="layer-badge l1">L4</span></td><td><span data-en="Cross-file Consistency" data-zh="跨文件一致性">跨文件一致性</span></td><td>3</td><td>0</td></tr>
+<tr><td><span class="layer-badge l2">L5</span></td><td><span data-en="Doc ↔ Code Alignment" data-zh="文档↔代码对齐">文档↔代码对齐</span></td><td>2</td><td>2</td></tr>
+<tr><td><span class="layer-badge l3">L6</span></td><td><span data-en="Dependency Integrity" data-zh="依赖完整性">依赖完整性</span></td><td>3</td><td>2</td></tr>
+<tr><td><span class="layer-badge l1">L7</span></td><td><span data-en="File Hygiene" data-zh="文件卫生">文件卫生</span></td><td>6</td><td>5</td></tr>
+<tr><td><span class="layer-badge l2">L8</span></td><td><span data-en="Security Compliance" data-zh="安全合规">安全合规</span></td><td>4</td><td>3</td></tr>
+<tr><td><span class="layer-badge l3">L9</span></td><td><span data-en="Robustness &amp; Degradation" data-zh="健壮性与降级">健壮性与降级</span></td><td>7</td><td>1</td></tr>
+<tr><td><span class="layer-badge l1">L10</span></td><td><span data-en="Content Quality" data-zh="内容质量">内容质量</span></td><td>5</td><td>1</td></tr>
+</tbody></table></div>
+</div>
+</div>
+<p style="text-align:center;margin-top:24px;font-size:0.82rem;color:var(--text-muted)"><span data-en="Full anti-pattern list with fixes in" data-zh="完整反模式清单及修复示例见">完整反模式清单及修复示例见</span> <a href="https://github.com/mupoet/mu-skill-creator/blob/main/references/quality-gates.md">quality-gates.md</a></p>
 </div></section>
 <section id="workflow"><div class="container">
 <div class="section-header center"><div class="section-label"><span data-en="🎯 Creation Workflow" data-zh="🎯 创作工作流">🎯 创作工作流</span></div>
@@ -248,26 +262,6 @@
 <div class="workflow-step"><div class="step-marker">6</div><div class="step-body"><h4><span data-en="Verifiability Audit" data-zh="可验证性审查">可验证性审查</span></h4><p><span data-en="Every instruction must be yes/no judgeable. &quot;High quality code&quot; → &quot;lint passes, no errors.&quot;" data-zh="逐条审查指令可yes/no判断。“写高质量代码”→“lint通过无error”。">逐条审查指令可yes/no判断。“写高质量代码”→“lint通过无error”。</span></p><div class="step-exit"><span data-en="Exit: All instructions verifiable" data-zh="出口：全部指令可验证">出口：全部指令可验证</span></div></div></div>
 <div class="workflow-step"><div class="step-marker">7</div><div class="step-body"><h4><span data-en="Trigger Word Optimization" data-zh="触发词优化">触发词优化</span></h4><p><span data-en="Scan for banned words, 5+ trigger variations in CN/EN, test 10+10 accuracy ≥85%." data-zh="扫禁止词，中英文触发词5+种，测试10+10准确率≥85%。">扫禁止词，中英文触发词5+种，测试10+10准确率≥85%。</span></p><div class="step-exit"><span data-en="Exit: accuracy ≥85%" data-zh="出口：准确率≥85%">出口：准确率≥85%</span></div></div></div>
 </div>
-</div></section>
-<section id="checklist" style="background:var(--bg-warm)"><div class="container">
-<div class="section-header center"><div class="section-label"><span data-en="✅ Quality Audit" data-zh="✅ 质量审计">✅ 质量审计</span></div>
-<h2 class="section-title"><span data-en="49 items across 10 layers" data-zh="49项检查，覆盖10个层级">49项检查，覆盖10个层级</span></h2>
-<p class="section-desc"><span data-en="26 items auto-checkable via script. &quot;Looks fine&quot; is no longer a delivery standard." data-zh="26项可脚本自动化检查。“目测没问题”不再是交付标准。">26项可脚本自动化检查。“目测没问题”不再是交付标准。</span></p>
-</div>
-<div style="overflow-x:auto"><table class="layer-table"><thead><tr>
-<th><span data-en="Layer" data-zh="层级">层级</span></th><th><span data-en="Audit Target" data-zh="审计目标">审计目标</span></th><th><span data-en="Items" data-zh="项数">项数</span></th><th><span data-en="Auto" data-zh="自动">自动</span></th>
-</tr></thead><tbody>
-<tr><td><span class="layer-badge l1">L1</span></td><td><span data-en="Document Structure" data-zh="文档结构">文档结构</span></td><td>6</td><td>4</td></tr>
-<tr><td><span class="layer-badge l2">L2</span></td><td><span data-en="Architecture Consistency" data-zh="架构一致性">架构一致性</span></td><td>5</td><td>2</td></tr>
-<tr><td><span class="layer-badge l3">L3</span></td><td><span data-en="Code Quality" data-zh="代码质量">代码质量</span></td><td>8</td><td>6</td></tr>
-<tr><td><span class="layer-badge l1">L4</span></td><td><span data-en="Cross-file Consistency" data-zh="跨文件一致性">跨文件一致性</span></td><td>3</td><td>0</td></tr>
-<tr><td><span class="layer-badge l2">L5</span></td><td><span data-en="Doc ↔ Code Alignment" data-zh="文档↔代码对齐">文档↔代码对齐</span></td><td>2</td><td>2</td></tr>
-<tr><td><span class="layer-badge l3">L6</span></td><td><span data-en="Dependency Integrity" data-zh="依赖完整性">依赖完整性</span></td><td>3</td><td>2</td></tr>
-<tr><td><span class="layer-badge l1">L7</span></td><td><span data-en="File Hygiene" data-zh="文件卫生">文件卫生</span></td><td>6</td><td>5</td></tr>
-<tr><td><span class="layer-badge l2">L8</span></td><td><span data-en="Security Compliance" data-zh="安全合规">安全合规</span></td><td>4</td><td>3</td></tr>
-<tr><td><span class="layer-badge l3">L9</span></td><td><span data-en="Robustness &amp; Degradation" data-zh="健壮性与降级">健壮性与降级</span></td><td>7</td><td>1</td></tr>
-<tr><td><span class="layer-badge l1">L10</span></td><td><span data-en="Content Quality" data-zh="内容质量">内容质量</span></td><td>5</td><td>1</td></tr>
-</tbody></table></div>
 </div></section>
 <section id="comparison"><div class="container">
 <div class="section-header center"><div class="section-label"><span data-en="📊 Comparison" data-zh="📊 对比">📊 对比</span></div>
