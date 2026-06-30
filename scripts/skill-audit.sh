@@ -22,7 +22,7 @@ set -euo pipefail
 # Auto-detect SKILL_BASE: env var > script location > fallback
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [ -z "${SKILL_BASE:-}" ]; then
-  # Try 2 levels up (non-nested) then 3 levels up (skills-market/ nested)
+  # Try 2 levels up (non-nested) then 3 levels up (nested installation path)
   for _d in "$(dirname "$(dirname "$SCRIPT_DIR")")" "$(dirname "$(dirname "$(dirname "$SCRIPT_DIR")")")"; do
     if find "$_d" -maxdepth 3 -name "SKILL.md" -print -quit 2>/dev/null | grep -q .; then
       SKILL_BASE="$_d"
@@ -60,7 +60,7 @@ if [ ${#TARGETS[@]} -eq 0 ]; then
     SKILLS+=("${name}|${skill_md}")
   done < <(find "$SKILL_BASE" -maxdepth 3 -name "SKILL.md" ! -path "*/_archive/*" ! -path "*/_*/*" | sort)
 else
-  # 指定名称 → 找对应 SKILL.md（支持 skills-market/ 嵌套路径）
+  # 指定名称 → 找对应 SKILL.md（支持嵌套安装路径）
   for target in "${TARGETS[@]}"; do
     skill_md=$(find "$SKILL_BASE" -maxdepth 3 -path "*/${target}/SKILL.md" 2>/dev/null | head -1 || true)
     if [ -n "$skill_md" ]; then
